@@ -8,7 +8,7 @@ async function createUser(data) {
     return await prisma.user.create({ data });
   } catch (e) {
     console.log(e);
-    throw new ApiError("Error occured while creating user.", 400);
+    throw new ApiError("Error occured while creating user.", 500);
   }
 }
 
@@ -17,7 +17,7 @@ async function updateUser(id, data) {
     return await prisma.user.update({ data, where: { id } });
   } catch (e) {
     console.log(e);
-    throw new ApiError("Error occured while updating user.", 400);
+    throw new ApiError("Error occured while updating user.", 500);
   }
 }
 
@@ -28,7 +28,7 @@ async function getUser(id) {
     user = await prisma.user.findUnique({ where: { id } });
   } catch (e) {
     console.log(e);
-    throw new ApiError("Error occured while getting user.", 400);
+    throw new ApiError("Error occured while getting user.", 500);
   }
 
   if (user) {
@@ -43,7 +43,7 @@ async function getUsers() {
     return await prisma.user.findMany();
   } catch (e) {
     console.log(e);
-    throw new ApiError("Error occured while getting users.", 400);
+    throw new ApiError("Error occured while getting users.", 500);
   }
 }
 
@@ -52,7 +52,7 @@ async function deleteUser(id) {
     return await prisma.user.delete({ where: { id } });
   } catch (e) {
     console.log(e);
-    throw new ApiError("Error occured while deleting user.", 400);
+    throw new ApiError("Error occured while deleting user.", 500);
   }
 }
 
