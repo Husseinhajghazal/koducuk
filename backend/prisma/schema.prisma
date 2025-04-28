@@ -1,8 +1,110 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+enum ROLE {
+  ADMIN
+  PREMIUM_USER
+  STANDARD_USER
+  BASIC_USER
+}
+
+model User {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  first_name   String
+  last_name    String
+  email        String       @unique
+  password     String
+  role         ROLE
+  active       Boolean      @default(true)
+  user_courses UserCourse[]
+  created_at   DateTime     @default(now())
+  updated_at   DateTime     @updatedAt
+}
+
+model UserCourse {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id        String   @db.ObjectId
+  user           User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  course_id      String   @db.ObjectId
+  course         Course   @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  score          Int
+  reached_Lesson Int
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+}
+
+model Course {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  image        String
+  active       Boolean      @default(true)
+  user_courses UserCourse[]
+  sections     Section[]
+  created_at   DateTime     @default(now())
+  updated_at   DateTime     @updatedAt
+}
+
+model Section {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  active     Boolean  @default(true)
+  course_id  String   @db.ObjectId
+  course     Course   @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  lessons    Lesson[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Lesson {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  index       Int
+  name        String
+  video_url   String
+  description String
+  active      Boolean    @default(true)
+  section_id  String     @db.ObjectId
+  section     Section    @relation(fields: [section_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  questions   Question[]
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+
+  @@unique([section_id, index])
+}
+
+model Question {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  value      String
+  active     Boolean  @default(true)
+  choices    String[]
+  lesson_id  String   @db.ObjectId
+  lesson     Lesson   @relation(fields: [lesson_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Plan {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  price            Float
+  discounted_price Float
+  unit             String    @default("₺")
+  duration         String
+  description      String
+  features         Boolean[]
+  active           Boolean   @default(true)
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+}
+
+model Feature {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  value      String
+  active     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
