@@ -48,7 +48,12 @@ async function getUsers() {
 }
 
 async function deleteUser(id) {
-  return await prisma.user.delete({ where: { id } });
+  try {
+    return await prisma.user.delete({ where: { id } });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while deleting users.", 500);
+  }
 }
 
 module.exports = { createUser, updateUser, getUsers, deleteUser, checkNoUser };
