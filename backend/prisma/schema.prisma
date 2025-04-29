@@ -20,7 +20,7 @@ model User {
   last_name    String
   email        String       @unique
   password     String
-  role         ROLE
+  role         ROLE         @default(BASIC_USER)
   active       Boolean      @default(true)
   user_courses UserCourse[]
   created_at   DateTime     @default(now())
