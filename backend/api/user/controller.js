@@ -1,19 +1,14 @@
 const {
   createUser,
-  deleteUser,
-  getUsers,
   getUniqueUser,
-  getUser,
   updateUser,
   checkNoUser,
-  signToken,
-  verifyToken,
   hashPassword,
   sendActivationMail,
   checkPassword,
   samePassword,
 } = require("./service");
-
+const { signToken, verifyToken } = require("../../utils/helpers");
 const successResponse = require("../../utils/successRespnse");
 
 async function signup(req, res) {
@@ -80,7 +75,7 @@ async function activateAccount(req, res) {
   ]);
 }
 
-const changePassword = async (req, res) => {
+async function changePassword(req, res) {
   const { old_password, new_password } = req.body;
 
   await checkPassword(old_password, req.user.password);
@@ -90,9 +85,9 @@ const changePassword = async (req, res) => {
 
   const user = await updateUser(req.user.id, { password: hashedPassword });
   successResponse(res, "Şifre başarı ile güncellendi.", [user]);
-};
+}
 
-const changeInfo = async (req, res) => {
+async function changeInfo(req, res) {
   const { first_name, last_name, password } = req.body;
 
   await checkPassword(password, req.user.password);
@@ -100,13 +95,13 @@ const changeInfo = async (req, res) => {
   const user = await updateUser(req.user.id, { first_name, last_name });
 
   successResponse(res, "Bilgileri başarı ile güncellendi.", [user]);
-};
+}
 
-const toggleActive = async (req, res) => {
+async function toggleActive(req, res) {
   const user = await updateUser(req.user.id, { active: !req.user.active });
 
   successResponse(res, "Durum başarı ile güncellendi.", [user]);
-};
+}
 
 module.exports = {
   signup,
