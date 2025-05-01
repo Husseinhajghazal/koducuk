@@ -6,4 +6,8 @@ const authenticate = require("../../middleware/authentication");
 
 const router = express.Router();
 
+router.post("/signup", validation.signup, controller.signup);
+
+router.get("/activate/:token", validation.activate, controller.activateAccount);
+
 module.exports = router;
