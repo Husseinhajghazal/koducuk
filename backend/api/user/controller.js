@@ -9,7 +9,6 @@ const {
   samePassword,
 } = require("./service");
 const { signToken, verifyToken } = require("../../utils/helpers");
-const successResponse = require("../../utils/successRespnse");
 
 async function signup(req, res) {
   const { first_name, last_name, email, password } = req.body;
