@@ -1,5 +1,8 @@
 const ApiError = require("../../models/api-error");
 const { PrismaClient } = require("@prisma/client");
+const bcrypt = require("bcryptjs");
+const { sendMail } = require("../../utils/mail");
+const { emailMessage } = require("../../data/messages");
 
 const prisma = new PrismaClient();
 
@@ -21,21 +24,38 @@ async function updateUser(id, data) {
   }
 }
 
-async function getUser(id) {
+async function getUniqueUser(key, value) {
   let user;
 
   try {
-    user = await prisma.user.findUnique({ where: { id } });
+    user = await prisma.user.findUnique({ where: { [key]: value } });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting user.", 500);
   }
 
-  if (user) {
-    return user;
-  } else {
-    throw new ApiError("User not found.", 404);
+  if (!user) {
+    throw new ApiError("Kullanıcı bulanamadı.", 404);
   }
+
+  return user;
+}
+
+async function getUser(key, value) {
+  let user;
+
+  try {
+    user = await prisma.user.findFirst({ where: { [key]: value } });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting user.", 500);
+  }
+
+  if (!user) {
+    throw new ApiError("Kullanıcı bulanamadı.", 404);
+  }
+
+  return user;
 }
 
 async function getUsers() {
@@ -52,8 +72,74 @@ async function deleteUser(id) {
     return await prisma.user.delete({ where: { id } });
   } catch (e) {
     console.log(e);
-    throw new ApiError("Error occured while deleting user.", 500);
+    throw new ApiError("Error occured while deleting users.", 500);
   }
 }
 
-module.exports = { createUser, updateUser, getUser, getUsers, deleteUser };
+async function checkNoUser(key, value) {
+  let user;
+
+  try {
+    user = await prisma.user.findFirst({ where: { [key]: value } });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error has occured, try again later.", 500);
+  }
+
+  if (user) {
+    throw new ApiError("Error has occured, try again later.", 400);
+  }
+}
+
+async function sendActivationMail(token, email) {
+  const activation_url = `${process.env.CLIENT_URL}/activation/${token}`;
+
+  await sendMail({
+    email,
+    subject: "E-posta Onaylama | Koducuk",
+    message: emailMessage("activate", activation_url),
+  });
+}
+
+async function hashPassword(password) {
+  return await bcrypt.hash(password, 10);
+}
+
+async function checkPassword(enteredPassword, password) {
+  const isTrue = await bcrypt.compare(enteredPassword, password);
+  if (!isTrue) {
+    throw new ApiError(
+      "Bilgileri yanlış girmişsiniz, doğru bir şekilde tekrar yazar mısınız.",
+      401
+    );
+  }
+}
+
+async function samePassword(enteredPassword, password) {
+  const isTrue = await bcrypt.compare(enteredPassword, password);
+  if (isTrue) {
+    throw new ApiError("Ayın şifreye değiştirmek istiyorsunuz!.", 400);
+  }
+}
+
+async function checkActive(id) {
+  const { active } = await getUniqueUser("id", id);
+  if (!active) {
+    throw new ApiError("Hesabınız aktif değil!.", 400);
+  }
+}
+
+module.exports = {
+  createUser,
+  updateUser,
+  getUsers,
+  getUser,
+  deleteUser,
+  checkNoUser,
+  sendActivationMail,
+  hashPassword,
+  checkPassword,
+  samePassword,
+  getUniqueUser,
+  checkActive,
+};

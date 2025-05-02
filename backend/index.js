@@ -10,6 +10,8 @@ const cors = require("cors");
 const { errorHandler } = require("./middleware/error-handler");
 const { noRoute } = require("./middleware/no-route");
 
+const userRouter = require("./api/user/router");
+
 const app = express();
 
 //MZ added code here
@@ -28,7 +30,6 @@ app.use(compression());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//MZ added code here
 app.use("/api/user", userRouter);
 app.use("/api/course", courseRouter);
 app.use("/api/feature", featureRouter);
@@ -37,10 +38,6 @@ app.use("/api/plan", planRouter);
 app.use("/api/question", questionRouter);
 app.use("/api/section", sectionRouter);
 app.use("/api/user-course", userCourseRouter);
-
-app.get("/api", (req, res) => {
-  res.json({ message: "hi" });
-});
 
 app.use(noRoute);
 
