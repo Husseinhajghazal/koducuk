@@ -13,7 +13,7 @@ const {
 
 const { signToken, verifyToken } = require("../../utils/helpers");
 const { sendMail } = require("../../utils/mail");
-const successResponse = require("../../utils/successRespnse");
+const successResponse = require("../../utils/success-respnse");
 
 async function signup(req, res) {
   const { first_name, last_name, email, password } = req.body;

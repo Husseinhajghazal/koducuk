@@ -11,11 +11,6 @@ const { errorHandler } = require("./middleware/error-handler");
 const { noRoute } = require("./middleware/no-route");
 
 const userRouter = require("./api/user/router");
-
-const app = express();
-
-//MZ added code here
-const userRouter = require("./api/user/router");
 const courseRouter = require("./api/course/router");
 const featureRouter = require("./api/feature/router");
 const lessonRouter = require("./api/lesson/router");
@@ -23,6 +18,8 @@ const planRouter = require("./api/plan/router");
 const questionRouter = require("./api/question/router");
 const sectionRouter = require("./api/section/router");
 const userCourseRouter = require("./api/user-course/router");
+
+const app = express();
 
 app.use(cors());
 app.use(helmet({ crossOriginResourcePolicy: false }));

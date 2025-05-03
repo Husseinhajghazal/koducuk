@@ -1,5 +1,5 @@
 const { body, param, query } = require("express-validator");
-const { validator } = require("../../middleware/validtator");
+const { validator } = require("../../middleware/validator");
 
 const signup = [
   body("first_name").trim().notEmpty().withMessage("Adı gerekli."),
@@ -97,7 +97,7 @@ const activateAccount = [
   validator,
 ];
 
-const changeEmailRequest = [
+const updateEmailRequest = [
   body("old_email")
     .trim()
     .notEmpty()
@@ -127,7 +127,7 @@ const changeEmailRequest = [
   validator,
 ];
 
-const changeEmail = [
+const updateEmail = [
   param("token").trim().notEmpty().withMessage("token gereklidir."),
   validator,
 ];
@@ -184,11 +184,11 @@ module.exports = {
   login,
   signup,
   updateInfo,
-  changeEmail,
+  updateEmail,
   toggleActive,
   forgetPassword,
   updatePassword,
   activateAccount,
-  changeEmailRequest,
+  updateEmailRequest,
   updatePasswordByToken,
 };
