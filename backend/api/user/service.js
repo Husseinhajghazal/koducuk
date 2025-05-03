@@ -91,16 +91,6 @@ async function checkNoUser(key, value) {
   }
 }
 
-async function sendActivationMail(token, email) {
-  const activation_url = `${process.env.CLIENT_URL}/activation/${token}`;
-
-  await sendMail({
-    email,
-    subject: "E-posta Onaylama | Koducuk",
-    message: emailMessage("activate", activation_url),
-  });
-}
-
 async function hashPassword(password) {
   return await bcrypt.hash(password, 10);
 }
@@ -122,8 +112,7 @@ async function samePassword(enteredPassword, password) {
   }
 }
 
-async function checkActive(id) {
-  const { active } = await getUniqueUser("id", id);
+async function checkActive(active) {
   if (!active) {
     throw new ApiError("Hesabınız aktif değil!.", 400);
   }
@@ -136,7 +125,6 @@ module.exports = {
   getUser,
   deleteUser,
   checkNoUser,
-  sendActivationMail,
   hashPassword,
   checkPassword,
   samePassword,

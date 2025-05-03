@@ -4,11 +4,15 @@ const {
   updateUser,
   checkNoUser,
   hashPassword,
-  sendActivationMail,
   checkPassword,
   samePassword,
+  checkActive,
+  getUsers,
+  deleteUser,
 } = require("./service");
+
 const { signToken, verifyToken } = require("../../utils/helpers");
+const { sendMail } = require("../../utils/mail");
 const successResponse = require("../../utils/successRespnse");
 
 async function signup(req, res) {
@@ -23,7 +27,7 @@ async function signup(req, res) {
     password,
   });
 
-  await sendActivationMail(token, email);
+  await sendMail("activate", token, email, "E-posta Onaylama | Koducuk");
 
   successResponse(
     res,
@@ -36,6 +40,8 @@ async function login(req, res) {
   const { email, password } = req.body;
 
   const user = await getUniqueUser("email", email);
+
+  checkActive(user.active);
 
   await checkPassword(password, user.password);
 
@@ -75,7 +81,7 @@ async function activateAccount(req, res) {
   ]);
 }
 
-async function changePassword(req, res) {
+async function updatePassword(req, res) {
   const { old_password, new_password } = req.body;
 
   await checkPassword(old_password, req.user.password);
@@ -87,7 +93,7 @@ async function changePassword(req, res) {
   successResponse(res, "Şifre başarı ile güncellendi.", [user]);
 }
 
-async function changeInfo(req, res) {
+async function updateInfo(req, res) {
   const { first_name, last_name, password } = req.body;
 
   await checkPassword(password, req.user.password);
@@ -98,16 +104,105 @@ async function changeInfo(req, res) {
 }
 
 async function toggleActive(req, res) {
-  const user = await updateUser(req.user.id, { active: !req.user.active });
+  let user = getUniqueUser("id", req.params.id);
+  user = await updateUser(user.id, { active: !user.active });
 
   successResponse(res, "Durum başarı ile güncellendi.", [user]);
 }
 
+async function updateEmailRequest(req, res) {
+  const { password, old_email, new_email } = req.body;
+
+  await checkNoUser("email", new_email);
+
+  await getUniqueUser("email", old_email);
+
+  await checkPassword(password, req.user.password);
+
+  const token = signToken({ old_email, new_email });
+
+  await sendMail("update", token, old_email, "E-postan güncelleme | Arniva");
+
+  successResponse(
+    res,
+    "E-postanızı değiştirmek için, E-postanızı kontrole edin.",
+    []
+  );
+}
+
+async function updateEmail(req, res) {
+  const data = verifyToken(req.params.token);
+
+  let user = await getUniqueUser("email", data.old_email);
+  user = await updateUser({ email: data.new_email }, user.id);
+
+  successResponse(res, "Başarı ila güncellendi.", [user]);
+}
+
+async function forgetPassword(req, res) {
+  const email = req.body.email;
+
+  const token = signToken({ email });
+
+  const user = getUniqueUser("email", email);
+
+  checkActive(user.active);
+
+  await sendMail("password", token, email, "Şifre güncelleme | Arniva");
+
+  successResponse(res, success[8], []);
+}
+
+async function updatePasswordByToken(req, res) {
+  const { password } = req.body;
+
+  const data = verifyToken(req.params.token);
+
+  let user = await getUniqueUser("email", data.email);
+
+  checkActive(user.active);
+
+  await samePassword(password, user.password);
+
+  const hashedPassword = await hashPassword(password);
+
+  user = await update({ password: hashedPassword }, user.id);
+
+  successResponse(res, "Başarı ile güncellendi", [user]);
+}
+
+async function getUserController(req, res) {
+  let user = await getUniqueUser("id", req.params.id);
+
+  successResponse(res, "Kullanıcı başarı ile Çekildi.", [user]);
+}
+
+async function getUsersController(req, res) {
+  const users = await getUsers();
+
+  successResponse(res, "Kullanıcılar başarı ile Çekildi.", users);
+}
+
+async function deleteUserController(req, res) {
+  const user = await getUniqueUser("id", req.params.id);
+
+  await deleteUser(user.id);
+
+  successResponse(res, "Kullanıcılar başarı ile Çekildi.", [user]);
+}
+
 module.exports = {
-  signup,
-  activateAccount,
-  changePassword,
-  changeInfo,
   login,
+  signup,
+  updateInfo,
+  updateEmail,
   toggleActive,
+  forgetPassword,
+  updatePassword,
+  activateAccount,
+  getUserController,
+  updateEmailRequest,
+  getUsersController,
+  deleteUserController,
+  updatePasswordByToken,
 };
