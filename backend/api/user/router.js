@@ -2,12 +2,9 @@ const express = require("express");
 
 const validation = require("./validation");
 const controller = require("./controller");
-const { authenticate } = require("../../middleware/authentication");
-const { checkAdmin } = require("../../middleware/authenticate");
+const { authenticate, checkAdmin } = require("../../middleware/authentication");
 
 const router = express.Router();
-
-router.post("/signup", validation.signup, controller.signup);
 
 router.post("/login", validation.login, controller.login);
 
