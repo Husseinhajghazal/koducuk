@@ -91,7 +91,7 @@ model Question {
 model Plan {
   id               String    @id @default(auto()) @map("_id") @db.ObjectId
   price            Float
-  discounted_price Float
+  discounted_price Float     @default(0.0)
   unit             String    @default("₺")
   duration         String
   description      String

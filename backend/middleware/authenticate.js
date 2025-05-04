@@ -13,7 +13,7 @@ const authenticate = async (req, res, next) => {
     throw new ApiError("Not Authenticated!.", 401);
   }
 
-  req.user = await getUniqueUser("id", id);
+  req.user = await getUniqueUser("id", id, true);
 
   checkActive(req.user.active);
 

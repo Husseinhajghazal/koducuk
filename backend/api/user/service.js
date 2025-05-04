@@ -1,14 +1,26 @@
 const ApiError = require("../../models/api-error");
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcryptjs");
-const { sendMail } = require("../../utils/mail");
-const { emailMessage } = require("../../data/messages");
 
 const prisma = new PrismaClient();
 
 async function createUser(data) {
   try {
-    return await prisma.user.create({ data });
+    return await prisma.user.create({
+      data,
+      include: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+        password: false,
+        role: true,
+        active: true,
+        user_courses: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while creating user.", 500);
@@ -17,18 +29,47 @@ async function createUser(data) {
 
 async function updateUser(id, data) {
   try {
-    return await prisma.user.update({ data, where: { id } });
+    return await prisma.user.update({
+      data,
+      where: { id },
+      include: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+        password: false,
+        role: true,
+        active: true,
+        user_courses: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while updating user.", 500);
   }
 }
 
-async function getUniqueUser(key, value) {
+async function getUniqueUser(key, value, includePassword = false) {
   let user;
 
   try {
-    user = await prisma.user.findUnique({ where: { [key]: value } });
+    user = await prisma.user.findUnique({
+      where: { [key]: value },
+      include: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+        password: includePassword,
+        role: true,
+        active: true,
+        user_courses: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting user.", 500);
@@ -41,11 +82,25 @@ async function getUniqueUser(key, value) {
   return user;
 }
 
-async function getUser(key, value) {
+async function getUser(key, value, includePassword = false) {
   let user;
 
   try {
-    user = await prisma.user.findFirst({ where: { [key]: value } });
+    user = await prisma.user.findFirst({
+      where: { [key]: value },
+      include: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+        password: includePassword,
+        role: true,
+        active: true,
+        user_courses: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting user.", 500);
@@ -60,7 +115,20 @@ async function getUser(key, value) {
 
 async function getUsers() {
   try {
-    return await prisma.user.findMany();
+    return await prisma.user.findMany({
+      include: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+        password: false,
+        role: true,
+        active: true,
+        user_courses: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting users.", 500);
@@ -69,7 +137,21 @@ async function getUsers() {
 
 async function deleteUser(id) {
   try {
-    return await prisma.user.delete({ where: { id } });
+    return await prisma.user.delete({
+      where: { id },
+      include: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+        password: false,
+        role: true,
+        active: true,
+        user_courses: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while deleting users.", 500);
@@ -80,7 +162,21 @@ async function checkNoUser(key, value) {
   let user;
 
   try {
-    user = await prisma.user.findFirst({ where: { [key]: value } });
+    user = await prisma.user.findFirst({
+      where: { [key]: value },
+      include: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+        password: false,
+        role: true,
+        active: true,
+        user_courses: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error has occured, try again later.", 500);
