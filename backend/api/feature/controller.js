@@ -3,22 +3,70 @@ const {
   deleteFeature,
   getFeatures,
   updateFeature,
+  getUniqueFeature,
 } = require("./service");
 const successResponse = require("../../utils/success-respnse");
 
-async function getFeaturesController(req, res) {}
+async function getFeaturesController(req, res) {
+  const features = await getFeatures();
 
-async function getActiveFeatures(req, res) {}
+  successResponse(res, "Özelikler Başarı ile çekildi.", features);
+}
 
-async function toggleActive(req, res) {}
+async function getActiveFeatures(req, res) {
+  const features = await getFeatures({ active: true });
 
-async function getFeatureController(req, res) {}
+  successResponse(res, "Özelikler Başarı ile çekildi.", features);
+}
 
-async function createFeatureController(req, res) {}
+async function toggleActive(req, res) {
+  const id = req.params.id;
 
-async function updateFeatureController(req, res) {}
+  let feature = await getUniqueFeature(id);
 
-async function deleteFeatureController(req, res) {}
+  feature = await updateFeature(id, { active: !feature.active });
+
+  successResponse(res, "Durum başarı ile güncellendi.", [feature]);
+}
+
+async function getFeatureController(req, res) {
+  const feature = await getUniqueFeature(req.params.id);
+
+  successResponse(res, "Özellik başarı ile çekildi.", [feature]);
+}
+
+async function createFeatureController(req, res) {
+  const { value } = req.body;
+
+  const feature = await createFeature({
+    value,
+  });
+
+  successResponse(res, "Özellik Başarı ile oluşturuldu.", [feature]);
+}
+
+async function updateFeatureController(req, res) {
+  const { value } = req.body;
+  const id = req.params.id;
+
+  await getUniqueFeature(id);
+
+  let feature = await updateFeature(id, {
+    value,
+  });
+
+  successResponse(res, "Özellik başarı ile güncellendi.", [feature]);
+}
+
+async function deleteFeatureController(req, res) {
+  const id = req.params.id;
+
+  const feature = await getUniqueFeature(id);
+
+  await deleteFeature(id);
+
+  successResponse(res, "Özellik başarı ile silindi.", [feature]);
+}
 
 module.exports = {
   getFeaturesController,

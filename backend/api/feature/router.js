@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/", authenticate, checkAdmin, controller.getFeaturesController);
 
-router.get("/active", authenticate, controller.getActiveFeatures);
+router.get("/active", controller.getActiveFeatures);
 
 router.get(
   "/toggle/:id",
@@ -18,10 +18,12 @@ router.get(
   controller.toggleActive
 );
 
-router.get("/:id", authenticate, controller.getFeatureController);
+router.get("/:id", validation.getFeature, controller.getFeatureController);
 
 router.post(
   "/create",
+  authenticate,
+  checkAdmin,
   validation.createFeature,
   controller.createFeatureController
 );
@@ -29,10 +31,17 @@ router.post(
 router.put(
   "/:id",
   authenticate,
+  checkAdmin,
   validation.updateFeature,
   controller.updateFeatureController
 );
 
-router.delete("/:id", authenticate, controller.deleteFeatureController);
+router.delete(
+  "/:id",
+  authenticate,
+  checkAdmin,
+  validation.deleteFeature,
+  controller.deleteFeatureController
+);
 
 module.exports = router;

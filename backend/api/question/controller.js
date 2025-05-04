@@ -25,7 +25,7 @@ async function toggleActive(req, res) {
 
   let question = await getUniqueQuestion(id);
 
-  question = await updateQuestion(id, { active: !plan.active });
+  question = await updateQuestion(id, { active: !question.active });
 
   successResponse(res, "Durum başarı ile güncellendi.", [question]);
 }
