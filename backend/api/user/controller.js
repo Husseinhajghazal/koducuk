@@ -20,7 +20,7 @@ async function signup(req, res) {
 
   await checkNoUser("email", email);
 
-  const token = signToken({
+  const token = await signToken({
     first_name,
     last_name,
     email,
@@ -45,9 +45,9 @@ async function login(req, res) {
 
   await checkPassword(password, user.password);
 
-  token = signToken(user.id);
+  token = await signToken({ id: user.id });
 
-  successResponse(res, success[6], [
+  successResponse(res, "Başarı ile giriş yaptınız.", [
     {
       ...user,
       token,
@@ -57,7 +57,7 @@ async function login(req, res) {
 }
 
 async function activateAccount(req, res) {
-  let user = verifyToken(req.params.token);
+  let user = await verifyToken(req.params.token);
 
   const hashedPassword = await hashPassword(user.password);
 
@@ -70,7 +70,7 @@ async function activateAccount(req, res) {
     email,
   });
 
-  const token = signToken(user.id);
+  const token = await signToken({ id: user.id });
 
   successResponse(res, "Hesabınızı başarıyla etkinleştirildi.", [
     {
@@ -119,7 +119,7 @@ async function updateEmailRequest(req, res) {
 
   await checkPassword(password, req.user.password);
 
-  const token = signToken({ old_email, new_email });
+  const token = await signToken({ old_email, new_email });
 
   await sendMail("update", token, old_email, "E-postan güncelleme | Arniva");
 
@@ -131,7 +131,7 @@ async function updateEmailRequest(req, res) {
 }
 
 async function updateEmail(req, res) {
-  const data = verifyToken(req.params.token);
+  const data = await verifyToken(req.params.token);
 
   let user = await getUniqueUser("email", data.old_email);
   user = await updateUser({ email: data.new_email }, user.id);
@@ -142,7 +142,7 @@ async function updateEmail(req, res) {
 async function forgetPassword(req, res) {
   const email = req.body.email;
 
-  const token = signToken({ email });
+  const token = await signToken({ email });
 
   const user = getUniqueUser("email", email);
 
@@ -150,13 +150,17 @@ async function forgetPassword(req, res) {
 
   await sendMail("password", token, email, "Şifre güncelleme | Arniva");
 
-  successResponse(res, success[8], []);
+  successResponse(
+    res,
+    "Şifrenizi güncellemek için, e-postanızı kontrol edin.",
+    []
+  );
 }
 
 async function updatePasswordByToken(req, res) {
   const { password } = req.body;
 
-  const data = verifyToken(req.params.token);
+  const data = await verifyToken(req.params.token);
 
   let user = await getUniqueUser("email", data.email);
 

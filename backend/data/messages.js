@@ -22,7 +22,7 @@ const emailData = {
   },
 };
 
-exports.emailMessage = (type, href) => {
+exports.getMailContent = (type, href) => {
   return `<!DOCTYPE html>
 <html>
   <head>

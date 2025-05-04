@@ -21,11 +21,28 @@ async function updateCourse(id, data) {
   }
 }
 
-async function getCourse(id) {
+async function getUniqueCourse(id) {
   let course;
 
   try {
     course = await prisma.course.findUnique({ where: { id } });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting course.", 500);
+  }
+
+  if (course) {
+    return course;
+  } else {
+    throw new ApiError("Course not found.", 404);
+  }
+}
+
+async function getCourse(key, value) {
+  let course;
+
+  try {
+    course = await prisma.course.findFirst({ where: { [key]: value } });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting course.", 500);

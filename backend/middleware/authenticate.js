@@ -6,7 +6,8 @@ const authenticate = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
 
-    id = verifyToken(token);
+    const data = await verifyToken(token);
+    id = data.id;
   } catch (e) {
     throw new ApiError("Not Authenticated!.", 401);
   }

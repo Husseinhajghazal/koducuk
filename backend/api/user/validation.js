@@ -18,7 +18,6 @@ const signup = [
     .withMessage(
       "Şifreniz en az 1 küçük harf, 1 büyük harf, 1 rakam içermeli ve 8 ile 16 karakter arasında olmalıdır."
     ),
-  ,
   validator,
 ];
 
