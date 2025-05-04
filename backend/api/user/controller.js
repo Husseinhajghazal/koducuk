@@ -39,11 +39,15 @@ async function signup(req, res) {
 async function login(req, res) {
   const { email, password } = req.body;
 
-  const user = await getUniqueUser("email", email);
+  const { password: hashedPassword, ...user } = await getUniqueUser(
+    "email",
+    email,
+    true
+  );
 
   checkActive(user.active);
 
-  await checkPassword(password, user.password);
+  await checkPassword(password, hashedPassword);
 
   token = await signToken({ id: user.id });
 
@@ -170,7 +174,7 @@ async function updatePasswordByToken(req, res) {
 
   const hashedPassword = await hashPassword(password);
 
-  user = await update({ password: hashedPassword }, user.id);
+  user = await updateUser({ password: hashedPassword }, user.id);
 
   successResponse(res, "Başarı ile güncellendi", [user]);
 }

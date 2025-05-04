@@ -21,7 +21,7 @@ async function updatePlan(id, data) {
   }
 }
 
-async function getPlan(id) {
+async function getUniquePlan(id) {
   let plan;
 
   try {
@@ -38,9 +38,26 @@ async function getPlan(id) {
   }
 }
 
-async function getPlans() {
+async function getPlan(key, value) {
+  let plan;
+
   try {
-    return await prisma.plan.findMany();
+    plan = await prisma.plan.findUnique({ where: { [key]: value } });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting plan.", 500);
+  }
+
+  if (plan) {
+    return plan;
+  } else {
+    throw new ApiError("Plan not found.", 404);
+  }
+}
+
+async function getPlans(where) {
+  try {
+    return await prisma.plan.findMany(where && { where });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting plans.", 500);
@@ -56,4 +73,11 @@ async function deletePlan(id) {
   }
 }
 
-module.exports = { createPlan, updatePlan, getPlan, getPlans, deletePlan };
+module.exports = {
+  createPlan,
+  updatePlan,
+  getPlan,
+  getPlans,
+  deletePlan,
+  getUniquePlan,
+};

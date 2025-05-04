@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/", authenticate, checkAdmin, controller.getPlansController);
 
-router.get("/active", authenticate, controller.getActivePlans);
+router.get("/active", controller.getActivePlans);
 
 router.get(
   "/toggle/:id",
@@ -29,6 +29,11 @@ router.put(
   controller.updatePlanController
 );
 
-router.delete("/:id", authenticate, controller.deletePlanController);
+router.delete(
+  "/:id",
+  authenticate,
+  validation.deletePlan,
+  controller.deletePlanController
+);
 
 module.exports = router;
