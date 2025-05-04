@@ -2,15 +2,37 @@ const express = require("express");
 
 const validation = require("./validation");
 const controller = require("./controller");
-const { authenticate } = require("../../middleware/authenticate");
+const { authenticate, checkAdmin } = require("../../middleware/authenticate");
 
 const router = express.Router();
 
+router.get("/", authenticate, controller.getQuestionsController);
 
- router.get("/", authenticate, controller.getAllCs);
- router.get("/:id", authenticate, controller.getQuestionById);
- router.post("/create", validation.createQuestion, controller.createQuestion);
- router.put( "/:id", authenticate,validation.updateQuestion,controller.updateQuestion);
- router.delete("/:id", authenticate, controller.deleteQuestion);
+router.get("/active", authenticate, controller.getActiveQuestions);
+
+router.get(
+  "/toggle/:id",
+  authenticate,
+  checkAdmin,
+  validation.toggleActive,
+  controller.toggleActive
+);
+
+router.get("/:id", authenticate, controller.getQuestionController);
+
+router.post(
+  "/create",
+  validation.createQuestion,
+  controller.createQuestionController
+);
+
+router.put(
+  "/:id",
+  authenticate,
+  validation.updateQuestion,
+  controller.updateQuestionController
+);
+
+router.delete("/:id", authenticate, controller.deleteQuestionController);
 
 module.exports = router;

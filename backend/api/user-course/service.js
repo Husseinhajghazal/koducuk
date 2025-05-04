@@ -21,7 +21,7 @@ async function updateUserCourse(id, data) {
   }
 }
 
-async function getUserCourse(id) {
+async function getUniqueUserCourse(id) {
   let userCourse;
 
   try {
@@ -36,6 +36,25 @@ async function getUserCourse(id) {
   } else {
     throw new ApiError("UserCourse not found.", 404);
   }
+}
+
+async function getUserCourse(key, value) {
+  let userCourse;
+
+  try {
+    userCourse = await prisma.userCourse.findUnique({
+      where: { [key]: value },
+    });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting userCourse.", 500);
+  }
+
+  if (!userCourse) {
+    throw new ApiError("UserCourse not found.", 404);
+  }
+
+  return userCourse;
 }
 
 async function getUserCourses() {
@@ -62,4 +81,5 @@ module.exports = {
   getUserCourse,
   getUserCourses,
   deleteUserCourse,
+  getUniqueUserCourse,
 };

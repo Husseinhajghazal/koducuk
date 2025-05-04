@@ -2,15 +2,33 @@ const express = require("express");
 
 const validation = require("./validation");
 const controller = require("./controller");
-const { authenticate } = require("../../middleware/authenticate");
+const { authenticate, checkAdmin } = require("../../middleware/authenticate");
 
 const router = express.Router();
 
- 
- router.get("/", authenticate, controller.getAllPlans);
- router.get("/:id", authenticate, controller.getPlanById);
- router.post("/create", validation.createPlan, controller.createPlan);
- router.put("/:id", authenticate, validation.updatePlan, controller.updatePlan);
- router.delete("/:id", authenticate, controller.deletePlan);
+router.get("/", authenticate, checkAdmin, controller.getPlansController);
+
+router.get("/active", authenticate, controller.getActivePlans);
+
+router.get(
+  "/toggle/:id",
+  authenticate,
+  checkAdmin,
+  validation.toggleActive,
+  controller.toggleActive
+);
+
+router.get("/:id", authenticate, controller.getPlanController);
+
+router.post("/create", validation.createPlan, controller.createPlanController);
+
+router.put(
+  "/:id",
+  authenticate,
+  validation.updatePlan,
+  controller.updatePlanController
+);
+
+router.delete("/:id", authenticate, controller.deletePlanController);
 
 module.exports = router;

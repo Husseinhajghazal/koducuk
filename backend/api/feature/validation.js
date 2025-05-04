@@ -3,4 +3,8 @@ const { validator } = require("../../middleware/validator");
 
 const createFeature = [validator];
 
-module.exports = { createFeature };
+const toggleActive = [validator];
+
+const updateFeature = [validator];
+
+module.exports = { createFeature, toggleActive, updateFeature };

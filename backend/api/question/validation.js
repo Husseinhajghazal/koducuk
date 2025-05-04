@@ -1,7 +1,10 @@
 const { body, param, query } = require("express-validator");
 const { validator } = require("../../middleware/validator");
-const { createFeature } = require("../feature/validation");
 
- const createFeature = [ validator];
+const createQuestion = [validator];
 
-module.exports = {createFeature};
+const toggleActive = [validator];
+
+const updateQuestion = [validator];
+
+module.exports = { createQuestion, toggleActive, updateQuestion };

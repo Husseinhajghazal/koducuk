@@ -5,8 +5,27 @@ const {
   updateQuestion,
 } = require("./service");
 const successResponse = require("../../utils/success-respnse");
- 
-async function   getAllFeatures(req , res) {}
 
+async function getQuestionsController(req, res) {}
 
-module.exports = {getAllCs , getQuestionById , createQuestion , updateQuestion , deleteQuestion };
+async function getActiveQuestions(req, res) {}
+
+async function toggleActive(req, res) {}
+
+async function getQuestionController(req, res) {}
+
+async function createQuestionController(req, res) {}
+
+async function updateQuestionController(req, res) {}
+
+async function deleteQuestionController(req, res) {}
+
+module.exports = {
+  getQuestionsController,
+  getActiveQuestions,
+  toggleActive,
+  getQuestionController,
+  createQuestionController,
+  updateQuestionController,
+  deleteQuestionController,
+};
