@@ -8,4 +8,4 @@ const successResponse = require("../../utils/success-respnse");
 
 async function getAllFeatures(req, res) {}
 
-module.exports = { getAllFeatures };
+module.exports = { getAllFeatures , getFeatureById , createFeature };

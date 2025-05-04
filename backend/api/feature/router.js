@@ -6,15 +6,15 @@ const { authenticate } = require("../../middleware/authenticate");
 
 const router = express.Router();
 
-// router.get("/", authenticate, controller.getAllFeatures);
-// router.get("/:id", authenticate, controller.getFeatureById);
-// router.post("/create", validation.createFeature, controller.createFeature);
-// router.put(
-//   "/:id",
-//   authenticate,
-//   validation.updateFeature,
-//   controller.updateFeature
-// );
-// router.delete("/:id", authenticate, controller.deleteFeature);
+ router.get("/", authenticate, controller.getAllFeatures);
+ router.get("/:id", authenticate, controller.getFeatureById);
+ router.post("/create", validation.createFeature, controller.createFeature);
+ router.put(
+   "/:id",
+   authenticate,
+   validation.updateFeature,
+   controller.updateFeature
+ );
+ router.delete("/:id", authenticate, controller.deleteFeature);
 
 module.exports = router;

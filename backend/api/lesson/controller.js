@@ -6,4 +6,6 @@ const {
 } = require("./service");
 const successResponse = require("../../utils/success-respnse");
 
-module.exports = {};
+async function  getAllFeatures(req , res) {}
+
+module.exports = {getAllLessons , getLessonById , createLesson };
