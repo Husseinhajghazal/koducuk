@@ -6,21 +6,41 @@ const { authenticate, checkAdmin } = require("../../middleware/authenticate");
 
 const router = express.Router();
 
-// router.get("/", authenticate, checkAdmin, controller.getCoursesController);
+router.get("/", authenticate, checkAdmin, controller.getCoursesController);
 
-// router.get("/active", authenticate, controller.getActiveCourses);
+router.get("/active", authenticate, controller.getActiveCourses);
 
-// router.get("/:id", authenticate, controller.getCourseController);
+router.get(
+  "/toggle/:id",
+  authenticate,
+  checkAdmin,
+  validation.toggleActive,
+  controller.toggleActive
+);
 
-// router.post("/create", validation.createCourse, controller.createCourse);
+router.get("/:id", authenticate, controller.getCourseController);
 
-// router.put(
-//   "/:id",
-//   authenticate,
-//   validation.updateCourse,
-//   controller.updateCourse
-// );
+router.post(
+  "/create",
+  authenticate,
+  checkAdmin,
+  validation.createCourse,
+  controller.createCourseController
+);
 
-// router.delete("/:id", authenticate, controller.deleteCourse);
+router.put(
+  "/:id",
+  authenticate,
+  checkAdmin,
+  validation.updateCourse,
+  controller.updateCourseController
+);
+
+router.delete(
+  "/:id",
+  authenticate,
+  checkAdmin,
+  controller.deleteCourseController
+);
 
 module.exports = router;
