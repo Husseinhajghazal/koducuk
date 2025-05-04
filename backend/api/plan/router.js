@@ -18,13 +18,25 @@ router.get(
   controller.toggleActive
 );
 
-router.get("/:id", authenticate, controller.getPlanController);
+router.get(
+  "/:id",
+  authenticate,
+  validation.getPlan,
+  controller.getPlanController
+);
 
-router.post("/create", validation.createPlan, controller.createPlanController);
+router.post(
+  "/create",
+  authenticate,
+  checkAdmin,
+  validation.createPlan,
+  controller.createPlanController
+);
 
 router.put(
   "/:id",
   authenticate,
+  checkAdmin,
   validation.updatePlan,
   controller.updatePlanController
 );
@@ -32,6 +44,7 @@ router.put(
 router.delete(
   "/:id",
   authenticate,
+  checkAdmin,
   validation.deletePlan,
   controller.deletePlanController
 );

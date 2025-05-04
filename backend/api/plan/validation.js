@@ -1,6 +1,11 @@
 const { body, param, query } = require("express-validator");
 const { validator } = require("../../middleware/validator");
 
+const getPlan = [
+  query("id").trim().notEmpty().withMessage("Price is required"),
+  validator,
+];
+
 const deletePlan = [
   query("id").trim().notEmpty().withMessage("Price is required"),
   validator,
@@ -77,4 +82,4 @@ const updatePlan = [
   validator,
 ];
 
-module.exports = { createPlan, toggleActive, updatePlan, deletePlan };
+module.exports = { createPlan, toggleActive, updatePlan, deletePlan, getPlan };
