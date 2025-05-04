@@ -21,11 +21,28 @@ async function updateLesson(id, data) {
   }
 }
 
-async function getLesson(id) {
+async function getUniqueLesson(id) {
   let lesson;
 
   try {
     lesson = await prisma.lesson.findUnique({ where: { id } });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting lesson.", 500);
+  }
+
+  if (lesson) {
+    return lesson;
+  } else {
+    throw new ApiError("Lesson not found.", 404);
+  }
+}
+
+async function getLesson(key, value) {
+  let lesson;
+
+  try {
+    lesson = await prisma.lesson.findFirst({ where: { [key]: value } });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting lesson.", 500);
@@ -62,4 +79,5 @@ module.exports = {
   getLesson,
   getLessons,
   deleteLesson,
+  getUniqueLesson,
 };

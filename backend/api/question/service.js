@@ -21,7 +21,24 @@ async function updateQuestion(id, data) {
   }
 }
 
-async function getQuestion(id) {
+async function getQuestion(key, value) {
+  let question;
+
+  try {
+    question = await prisma.question.findUnique({ where: { [key]: value } });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting question.", 500);
+  }
+
+  if (question) {
+    return question;
+  } else {
+    throw new ApiError("Question not found.", 404);
+  }
+}
+
+async function getUniqueQuestion(id) {
   let question;
 
   try {
@@ -38,9 +55,9 @@ async function getQuestion(id) {
   }
 }
 
-async function getQuestions() {
+async function getQuestions(where) {
   try {
-    return await prisma.question.findMany();
+    return await prisma.question.findMany(where && { where });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting questions.", 500);
@@ -62,4 +79,5 @@ module.exports = {
   getQuestion,
   getQuestions,
   deleteQuestion,
+  getUniqueQuestion,
 };

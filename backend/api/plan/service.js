@@ -42,7 +42,7 @@ async function getPlan(key, value) {
   let plan;
 
   try {
-    plan = await prisma.plan.findUnique({ where: { [key]: value } });
+    plan = await prisma.plan.findFirst({ where: { [key]: value } });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting plan.", 500);

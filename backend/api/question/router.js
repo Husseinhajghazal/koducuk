@@ -6,7 +6,7 @@ const { authenticate, checkAdmin } = require("../../middleware/authenticate");
 
 const router = express.Router();
 
-router.get("/", authenticate, controller.getQuestionsController);
+router.get("/", authenticate, checkAdmin, controller.getQuestionsController);
 
 router.get("/active", authenticate, controller.getActiveQuestions);
 
@@ -18,10 +18,17 @@ router.get(
   controller.toggleActive
 );
 
-router.get("/:id", authenticate, controller.getQuestionController);
+router.get(
+  "/:id",
+  authenticate,
+  validation.getQuestion,
+  controller.getQuestionController
+);
 
 router.post(
   "/create",
+  authenticate,
+  checkAdmin,
   validation.createQuestion,
   controller.createQuestionController
 );
@@ -29,10 +36,17 @@ router.post(
 router.put(
   "/:id",
   authenticate,
+  checkAdmin,
   validation.updateQuestion,
   controller.updateQuestionController
 );
 
-router.delete("/:id", authenticate, controller.deleteQuestionController);
+router.delete(
+  "/:id",
+  authenticate,
+  checkAdmin,
+  validation.deleteQuestion,
+  controller.deleteQuestionController
+);
 
 module.exports = router;

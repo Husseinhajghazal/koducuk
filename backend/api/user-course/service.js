@@ -42,7 +42,7 @@ async function getUserCourse(key, value) {
   let userCourse;
 
   try {
-    userCourse = await prisma.userCourse.findUnique({
+    userCourse = await prisma.userCourse.findFirst({
       where: { [key]: value },
     });
   } catch (e) {
