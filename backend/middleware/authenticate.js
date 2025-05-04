@@ -1,4 +1,5 @@
 const { getUniqueUser, checkActive } = require("../api/user/service");
+const ApiError = require("../models/api-error");
 const { verifyToken } = require("../utils/helpers");
 
 const authenticate = async (req, res, next) => {
