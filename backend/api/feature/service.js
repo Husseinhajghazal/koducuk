@@ -21,7 +21,7 @@ async function updateFeature(id, data) {
   }
 }
 
-async function getFeature(id) {
+async function getUniqueFeature(id) {
   let feature;
 
   try {
@@ -38,9 +38,26 @@ async function getFeature(id) {
   }
 }
 
-async function getFeatures() {
+async function getFeature(key, value) {
+  let feature;
+
   try {
-    return await prisma.feature.findMany();
+    feature = await prisma.feature.findUnique({ where: { [key]: value } });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting feature.", 500);
+  }
+
+  if (feature) {
+    return feature;
+  } else {
+    throw new ApiError("Feature not found.", 404);
+  }
+}
+
+async function getFeatures(where) {
+  try {
+    return await prisma.feature.findMany(where && { where });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting features.", 500);
@@ -56,4 +73,11 @@ async function deleteFeature(id) {
   }
 }
 
-module.exports = { createFeature, updateFeature, getFeature, getFeatures, deleteFeature };
+module.exports = {
+  createFeature,
+  updateFeature,
+  getFeature,
+  getFeatures,
+  deleteFeature,
+  getUniqueFeature,
+};
