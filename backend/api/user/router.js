@@ -6,6 +6,8 @@ const { authenticate, checkAdmin } = require("../../middleware/authenticate");
 
 const router = express.Router();
 
+router.post("/signup", validation.signup, controller.signup);
+
 router.post("/login", validation.login, controller.login);
 
 router.post(
