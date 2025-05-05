@@ -36,6 +36,11 @@ const deleteQuestion = [
   validator,
 ];
 
+const getQuestion = [
+  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  validator,
+];
+
 const toggleActive = [
   param("id").trim().notEmpty().withMessage("id gereklidir."),
   validator,
@@ -73,4 +78,5 @@ module.exports = {
   createQuestion,
   toggleActive,
   updateQuestion,
+  getQuestion,
 };
