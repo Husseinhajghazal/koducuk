@@ -8,7 +8,7 @@ async function createUser(data) {
   try {
     return await prisma.user.create({
       data,
-      include: {
+      select: {
         id: true,
         first_name: true,
         last_name: true,
@@ -32,7 +32,7 @@ async function updateUser(id, data) {
     return await prisma.user.update({
       data,
       where: { id },
-      include: {
+      select: {
         id: true,
         first_name: true,
         last_name: true,
@@ -57,7 +57,7 @@ async function getUniqueUser(key, value, includePassword = false) {
   try {
     user = await prisma.user.findUnique({
       where: { [key]: value },
-      include: {
+      select: {
         id: true,
         first_name: true,
         last_name: true,
@@ -88,7 +88,7 @@ async function getUser(key, value, includePassword = false) {
   try {
     user = await prisma.user.findFirst({
       where: { [key]: value },
-      include: {
+      select: {
         id: true,
         first_name: true,
         last_name: true,
@@ -116,7 +116,7 @@ async function getUser(key, value, includePassword = false) {
 async function getUsers() {
   try {
     return await prisma.user.findMany({
-      include: {
+      select: {
         id: true,
         first_name: true,
         last_name: true,
@@ -139,7 +139,7 @@ async function deleteUser(id) {
   try {
     return await prisma.user.delete({
       where: { id },
-      include: {
+      select: {
         id: true,
         first_name: true,
         last_name: true,
