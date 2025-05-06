@@ -18,10 +18,17 @@ router.get(
   controller.toggleActive
 );
 
-router.get("/:id", authenticate, controller.getLessonController);
+router.get(
+  "/:id",
+  authenticate,
+  validation.getLesson,
+  controller.getLessonController
+);
 
 router.post(
-  "/create",
+  "/",
+  authenticate,
+  checkAdmin,
   validation.createLesson,
   controller.createLessonController
 );
@@ -29,10 +36,17 @@ router.post(
 router.put(
   "/:id",
   authenticate,
+  checkAdmin,
   validation.updateLesson,
   controller.updateLessonController
 );
 
-router.delete("/:id", authenticate, controller.deleteLessonController);
+router.delete(
+  "/:id",
+  authenticate,
+  checkAdmin,
+  validation.deleteLesson,
+  controller.deleteLessonController
+);
 
 module.exports = router;

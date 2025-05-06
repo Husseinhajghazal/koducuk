@@ -21,7 +21,7 @@ router.get(
 router.get("/:id", authenticate, controller.getCourseController);
 
 router.post(
-  "/create",
+  "/",
   authenticate,
   checkAdmin,
   validation.createCourse,

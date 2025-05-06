@@ -26,7 +26,7 @@ router.get(
 );
 
 router.post(
-  "/create",
+  "/",
   authenticate,
   checkAdmin,
   validation.createSection,
