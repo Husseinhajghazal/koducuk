@@ -21,7 +21,7 @@ router.get(
 router.get("/:id", validation.getFeature, controller.getFeatureController);
 
 router.post(
-  "/create",
+  "/",
   authenticate,
   checkAdmin,
   validation.createFeature,

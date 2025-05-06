@@ -55,9 +55,12 @@ async function getLesson(key, value) {
   }
 }
 
-async function getLessons() {
+async function getLessons(where) {
   try {
-    return await prisma.lesson.findMany();
+    return await prisma.lesson.findMany({
+      ...(where && { where }),
+      orderBy: { index: "asc" },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting lessons.", 500);
@@ -73,6 +76,23 @@ async function deleteLesson(id) {
   }
 }
 
+async function checkNoLesson(index, section_id, id) {
+  let lesson;
+
+  try {
+    lesson = await prisma.lesson.findUnique({
+      where: { index, section_id, ...(id && { NOT: { id } }) },
+    });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting lesson.", 500);
+  }
+
+  if (lesson) {
+    throw new ApiError("İki ders aynı index'e ait olamaz.", 400);
+  }
+}
+
 module.exports = {
   createLesson,
   updateLesson,
@@ -80,4 +100,5 @@ module.exports = {
   getLessons,
   deleteLesson,
   getUniqueLesson,
+  checkNoLesson,
 };

@@ -2,12 +2,12 @@ const { body, param, query } = require("express-validator");
 const { validator } = require("../../middleware/validator");
 
 const getPlan = [
-  query("id").trim().notEmpty().withMessage("Price is required"),
+  query("id").trim().notEmpty().withMessage("id is required"),
   validator,
 ];
 
 const deletePlan = [
-  query("id").trim().notEmpty().withMessage("Price is required"),
+  query("id").trim().notEmpty().withMessage("id is required"),
   validator,
 ];
 
