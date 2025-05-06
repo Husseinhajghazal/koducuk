@@ -13,14 +13,22 @@ router.get("/active", authenticate, controller.getActiveSections);
 router.get(
   "/toggle/:id",
   authenticate,
+  checkAdmin,
   validation.toggleActive,
   controller.toggleActive
 );
 
-router.get("/:id", authenticate, controller.getSectionController);
+router.get(
+  "/:id",
+  authenticate,
+  validation.getSection,
+  controller.getSectionController
+);
 
 router.post(
   "/create",
+  authenticate,
+  checkAdmin,
   validation.createSection,
   controller.createSectionController
 );
@@ -28,10 +36,17 @@ router.post(
 router.put(
   "/:id",
   authenticate,
+  checkAdmin,
   validation.updateSection,
   controller.updateSectionController
 );
 
-router.delete("/:id", authenticate, controller.deleteSectionController);
+router.delete(
+  "/:id",
+  authenticate,
+  checkAdmin,
+  validation.deleteSection,
+  controller.deleteSectionController
+);
 
 module.exports = router;

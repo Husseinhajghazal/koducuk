@@ -21,7 +21,7 @@ async function updateSection(id, data) {
   }
 }
 
-async function getSection(id) {
+async function getUniqueSection(id) {
   let section;
 
   try {
@@ -38,9 +38,26 @@ async function getSection(id) {
   }
 }
 
-async function getSections() {
+async function getSection(key, value) {
+  let section;
+
   try {
-    return await prisma.section.findMany();
+    section = await prisma.section.findFirst({ where: { [key]: value } });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting section.", 500);
+  }
+
+  if (section) {
+    return section;
+  } else {
+    throw new ApiError("Section not found.", 404);
+  }
+}
+
+async function getSections(where) {
+  try {
+    return await prisma.section.findMany(where && { where });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting sections.", 500);
@@ -62,4 +79,5 @@ module.exports = {
   getSection,
   getSections,
   deleteSection,
+  getUniqueSection,
 };
