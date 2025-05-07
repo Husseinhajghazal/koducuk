@@ -19,7 +19,12 @@ const createLesson = [
 ];
 
 const updateLesson = [
-  query("id").trim().notEmpty().withMessage("id is required"),
+  query("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id is required")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   body("index")
     .exists()
     .withMessage("sırası gereklidir.")
@@ -37,17 +42,32 @@ const updateLesson = [
 ];
 
 const toggleActive = [
-  query("id").trim().notEmpty().withMessage("id is required"),
+  query("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id is required")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const getLesson = [
-  query("id").trim().notEmpty().withMessage("id is required"),
+  query("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id is required")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const deleteLesson = [
-  query("id").trim().notEmpty().withMessage("id is required"),
+  query("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id is required")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 

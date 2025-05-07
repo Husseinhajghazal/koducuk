@@ -55,9 +55,9 @@ async function getCourse(key, value) {
   }
 }
 
-async function getCourses() {
+async function getCourses(where) {
   try {
-    return await prisma.course.findMany();
+    return await prisma.course.findMany(where && { where });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting courses.", 500);

@@ -25,7 +25,10 @@ async function getUniqueUserCourse(id) {
   let userCourse;
 
   try {
-    userCourse = await prisma.userCourse.findUnique({ where: { id } });
+    userCourse = await prisma.userCourse.findUnique({
+      where: { id },
+      include: { course: true, user: true },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting userCourse.", 500);
@@ -44,6 +47,7 @@ async function getUserCourse(key, value) {
   try {
     userCourse = await prisma.userCourse.findFirst({
       where: { [key]: value },
+      include: { course: true, user: true },
     });
   } catch (e) {
     console.log(e);
@@ -57,9 +61,13 @@ async function getUserCourse(key, value) {
   return userCourse;
 }
 
-async function getUserCourses() {
+async function getUsersCourses(where) {
   try {
-    return await prisma.userCourse.findMany();
+    return await prisma.userCourse.findMany({
+      include: { course: true, user: true },
+      orderBy: { score: "desc" },
+      ...(where && { where }),
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting userCourses.", 500);
@@ -79,7 +87,7 @@ module.exports = {
   createUserCourse,
   updateUserCourse,
   getUserCourse,
-  getUserCourses,
   deleteUserCourse,
   getUniqueUserCourse,
+  getUsersCourses,
 };

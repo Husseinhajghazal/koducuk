@@ -11,12 +11,22 @@ const createFeature = [
 ];
 
 const toggleActive = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const updateFeature = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   body("value")
     .exists()
     .withMessage("Value is required")
@@ -26,12 +36,22 @@ const updateFeature = [
 ];
 
 const deleteFeature = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const getFeature = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 

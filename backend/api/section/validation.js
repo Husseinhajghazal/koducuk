@@ -16,22 +16,42 @@ const createSection = [
 ];
 
 const toggleActive = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const getSection = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const deleteSection = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const updateSection = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   body("name")
     .exists()
     .withMessage("name is required")

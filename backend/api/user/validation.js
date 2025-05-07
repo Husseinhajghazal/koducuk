@@ -87,12 +87,22 @@ const updateInfo = [
 ];
 
 const toggleActive = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const activateAccount = [
-  param("token").trim().notEmpty().withMessage("token gereklidir."),
+  param("token")
+    .trim()
+    .notEmpty()
+    .withMessage("token gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
@@ -168,12 +178,22 @@ const updatePasswordByToken = [
 ];
 
 const getUser = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const deleteUser = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 

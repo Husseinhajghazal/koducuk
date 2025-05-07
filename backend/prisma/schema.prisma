@@ -33,16 +33,18 @@ model UserCourse {
   user           User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   course_id      String   @db.ObjectId
   course         Course   @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  score          Int
-  reached_Lesson Int
+  score          Int      @default(0)
+  reached_Lesson Int      @default(0)
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
+
+  @@unique([course_id, user_id])
 }
 
 model Course {
   id           String       @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  image        String
+  image_url    String
   active       Boolean      @default(true)
   user_courses UserCourse[]
   sections     Section[]

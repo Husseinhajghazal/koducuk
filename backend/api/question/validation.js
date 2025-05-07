@@ -27,22 +27,42 @@ const createQuestion = [
 ];
 
 const deleteQuestion = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const getQuestion = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const toggleActive = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const updateQuestion = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   body("value")
     .exists()
     .withMessage("Value is required")

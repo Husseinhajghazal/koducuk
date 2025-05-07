@@ -2,12 +2,22 @@ const { body, param, query } = require("express-validator");
 const { validator } = require("../../middleware/validator");
 
 const getPlan = [
-  query("id").trim().notEmpty().withMessage("id is required"),
+  query("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id is required")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const deletePlan = [
-  query("id").trim().notEmpty().withMessage("id is required"),
+  query("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id is required")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
@@ -40,12 +50,22 @@ const createPlan = [
 ];
 
 const toggleActive = [
-  param("id").trim().notEmpty().withMessage("id gereklidir."),
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   validator,
 ];
 
 const updatePlan = [
-  query("id").trim().notEmpty().withMessage("id is required"),
+  query("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id is required")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
   body("price")
     .exists()
     .withMessage("Price is required")
