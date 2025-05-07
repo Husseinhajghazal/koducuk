@@ -18,7 +18,12 @@ router.get(
   controller.toggleActive
 );
 
-router.get("/:id", authenticate, controller.getCourseController);
+router.get(
+  "/:id",
+  authenticate,
+  validation.getCourse,
+  controller.getCourseController
+);
 
 router.post(
   "/",
@@ -40,6 +45,7 @@ router.delete(
   "/:id",
   authenticate,
   checkAdmin,
+  validation.deleteCourse,
   controller.deleteCourseController
 );
 

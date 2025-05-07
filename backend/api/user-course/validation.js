@@ -1,4 +1,86 @@
 const { body, param, query } = require("express-validator");
 const { validator } = require("../../middleware/validator");
 
-module.exports = {};
+const getUsersCourse = [
+  param("course_id")
+    .trim()
+    .notEmpty()
+    .withMessage("course id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
+  validator,
+];
+
+const getUserCourse = [
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
+  validator,
+];
+
+const deleteUserCourse = [
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
+  validator,
+];
+
+const createUserCourse = [
+  param("user_id")
+    .trim()
+    .notEmpty()
+    .withMessage("user id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
+  param("course_id")
+    .trim()
+    .notEmpty()
+    .withMessage("course id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
+  validator,
+];
+
+const updateUserCourse = [
+  param("id")
+    .trim()
+    .notEmpty()
+    .withMessage("id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
+  param("user_id")
+    .trim()
+    .notEmpty()
+    .withMessage("user id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
+  param("course_id")
+    .trim()
+    .notEmpty()
+    .withMessage("course id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
+  body("score")
+    .optional()
+    .isInt({ gt: 0 })
+    .withMessage("score must be a positive integer"),
+  body("reached_Lesson")
+    .optional()
+    .isInt({ gt: -1 })
+    .withMessage("reached Lesson must be a positive integer"),
+  validator,
+];
+
+module.exports = {
+  getUsersCourse,
+  getUserCourse,
+  deleteUserCourse,
+  createUserCourse,
+  updateUserCourse,
+};

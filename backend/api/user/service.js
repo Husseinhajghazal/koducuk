@@ -159,7 +159,16 @@ async function deleteUser(id) {
 }
 
 async function checkNoUser(key, value) {
-  const user = getUser(key, value);
+  let user;
+
+  try {
+    user = await prisma.user.findFirst({
+      where: { [key]: value },
+    });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting user.", 500);
+  }
 
   if (user) {
     throw new ApiError("Error has occured, try again later.", 400);
