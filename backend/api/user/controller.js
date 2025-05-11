@@ -138,7 +138,7 @@ async function updateEmail(req, res) {
   const data = await verifyToken(req.params.token);
 
   let user = await getUniqueUser("email", data.old_email);
-  user = await updateUser({ email: data.new_email }, user.id);
+  user = await updateUser(user.id, { email: data.new_email });
 
   successResponse(res, "Başarı ila güncellendi.", [user]);
 }
@@ -174,7 +174,7 @@ async function updatePasswordByToken(req, res) {
 
   const hashedPassword = await hashPassword(password);
 
-  user = await updateUser({ password: hashedPassword }, user.id);
+  user = await updateUser(user.id, { password: hashedPassword });
 
   successResponse(res, "Başarı ile güncellendi", [user]);
 }
