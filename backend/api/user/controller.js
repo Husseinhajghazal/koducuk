@@ -148,7 +148,7 @@ async function forgetPassword(req, res) {
 
   const token = await signToken({ email });
 
-  const user = getUniqueUser("email", email);
+  const user = await getUniqueUser("email", email);
 
   checkActive(user.active);
 
