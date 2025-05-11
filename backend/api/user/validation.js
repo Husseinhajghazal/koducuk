@@ -1,3 +1,4 @@
+const ApiError = require("../../models/api-error");
 const { body, param, query } = require("express-validator");
 const { validator } = require("../../middleware/validator");
 

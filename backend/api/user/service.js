@@ -53,7 +53,6 @@ async function updateUser(id, data) {
 
 async function getUniqueUser(key, value, includePassword = false) {
   let user;
-
   try {
     user = await prisma.user.findUnique({
       where: { [key]: value },

@@ -108,7 +108,7 @@ async function updateInfo(req, res) {
 }
 
 async function toggleActive(req, res) {
-  let user = getUniqueUser("id", req.params.id);
+  let user = await getUniqueUser("id", req.params.id);
   user = await updateUser(user.id, { active: !user.active });
 
   successResponse(res, "Durum başarı ile güncellendi.", [user]);
@@ -166,7 +166,7 @@ async function updatePasswordByToken(req, res) {
 
   const data = await verifyToken(req.params.token);
 
-  let user = await getUniqueUser("email", data.email);
+  let user = await getUniqueUser("email", data.email, true);
 
   checkActive(user.active);
 
