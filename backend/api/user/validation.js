@@ -97,12 +97,7 @@ const toggleActive = [
 ];
 
 const activateAccount = [
-  param("token")
-    .trim()
-    .notEmpty()
-    .withMessage("token gereklidir.")
-    .isMongoId()
-    .withMessage("MongoDb id cinsinden olmalı."),
+  param("token").trim().notEmpty().withMessage("token gereklidir."),
   validator,
 ];
 
