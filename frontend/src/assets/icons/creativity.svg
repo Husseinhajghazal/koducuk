@@ -1,0 +1,12 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="2.50024" y="2.5" width="195" height="195" rx="47.5" fill="white"/>
+<circle cx="100.5" cy="99.5" r="81.5" fill="#F881ED"/>
+<g style="mix-blend-mode:multiply">
+<circle cx="72" cy="100" r="53" fill="#0057FA"/>
+</g>
+<g style="mix-blend-mode:multiply">
+<circle cx="129" cy="100" r="53" fill="#0057FA"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M100.214 144.891C114.986 135.435 124.778 118.881 124.778 100.041C124.778 81.2 114.986 64.6462 100.214 55.1904C85.4421 64.6462 75.6505 81.2 75.6505 100.041C75.6505 118.881 85.4421 135.435 100.214 144.891Z" fill="#3AC152"/>
+<rect x="2.50024" y="2.5" width="195" height="195" rx="47.5" stroke="black" stroke-width="5"/>
+</svg>
