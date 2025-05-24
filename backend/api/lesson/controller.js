@@ -45,7 +45,7 @@ async function createLessonController(req, res) {
 
   checkNoLesson(index, section_id);
 
-  const lesson = await createLesson(id, {
+  const lesson = await createLesson({
     index,
     name,
     video_url,
