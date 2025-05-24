@@ -13,7 +13,7 @@ const features = [
 const TapeSection = () => {
   return (
     <div className="py-14 bg-gradient-to-tl from-ai-purple to-50% to-purple-500 flex overflow-x-clip">
-      <div className="flex flex-none items-center justify-between gap-12 text-black text-3xl font-bold animate-move-left [animation-duration:20s]">
+      <div className="flex flex-none items-center justify-between gap-5 md:gap-8 lg:gap-12 text-black text-xl md:text-2xl lg:text-3xl font-bold animate-move-left [animation-duration:20s]">
         {[...new Array(2)].fill(0).map((_, idx) => (
           <React.Fragment key={idx}>
             {features.map((feature) => (
@@ -21,7 +21,7 @@ const TapeSection = () => {
                 <div>{feature}</div>
                 <Image
                   src={StarIcon}
-                  className="size-8 text-white"
+                  className="size-4 md:size-6 lg:size-8 text-white"
                   alt="star"
                 />
               </React.Fragment>

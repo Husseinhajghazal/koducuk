@@ -8,7 +8,7 @@ import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <div>
+    <main>
       <HeroSection />
       <DividerSection />
       <AboutUsSection />
@@ -16,6 +16,6 @@ export default function Home() {
       <CoursesSection />
       <CallToAction />
       <Footer />
-    </div>
+    </main>
   );
 }

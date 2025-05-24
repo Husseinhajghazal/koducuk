@@ -1,15 +1,14 @@
 import Image from "next/image";
-import HtmlIcon from "@/assets/icons/html.svg";
 
-const Card = () => {
+const Card = ({ name, image_url }) => {
   return (
-    <div className="bg-black-700 rounded-3xl w-[350px] p-8 border-2 border-kc-gray/30 hover:border-ai-purple duration-200">
+    <div className="bg-black-700 rounded-3xl p-8 border-2 border-kc-gray/30 hover:border-ai-purple duration-200">
       <p className="text-kc-gray font-medium text-xl">kurs</p>
-      <h5 className="text-white font-bold text-2xl text-wrap mt-5">
+      <h5 className="text-white font-bold text-xl lg:text-2xl text-wrap mt-5">
         Docker & Kubernetes Essentials
       </h5>
       <Image
-        src={HtmlIcon}
+        src={image_url}
         width={140}
         height={140}
         className="mx-auto my-16"

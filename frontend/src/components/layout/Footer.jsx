@@ -40,7 +40,7 @@ const Footer = () => {
     <div className="bg-black-700">
       <Container>
         <div className="py-20 divide-y-2 divide-kc-gray">
-          <div className="grid grid-cols-3 gap-14 pb-10">
+          <div className="grid lg:grid-cols-3 gap-14 pb-10">
             <div>
               <a href="/">
                 <Image
@@ -86,10 +86,10 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between pt-10">
+          <div className="flex flex-col gap-5 md:flex-row items-center justify-between pt-10">
             <ul className="flex gap-5">
               {socialMedias.map((item) => (
-                <li className="hover:scale-105 duration-300">
+                <li key={item.link} className="hover:scale-105 duration-300">
                   <a href={item.link}>
                     <Image src={item.icon} width={30} height={30} alt="icon" />
                   </a>

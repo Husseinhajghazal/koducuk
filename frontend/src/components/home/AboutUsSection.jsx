@@ -1,4 +1,3 @@
-import React from "react";
 import Container from "@/components/layout/Container";
 import AdaptIcon from "@/assets/icons/adaptable.svg";
 import CreativeIcon from "@/assets/icons/creativity.svg";
@@ -36,8 +35,9 @@ const AboutUsSection = () => {
             eyebrow="İlkelerimiz"
             link="Hakkimizda"
             title="Eğitime modern bir yaklaşım"
+            href="/hakkimizda"
           />
-          <div className="mt-20 flex flex-nowrap gap-12">
+          <div className="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-12">
             {principles.map((principle) => (
               <div key={principle.title} className="text-center">
                 <Image
