@@ -45,7 +45,7 @@ async function createLessonController(req, res) {
 
   checkNoLesson(index, section_id);
 
-  const lesson = await createLesson(id, {
+  const lesson = await createLesson({
     index,
     name,
     video_url,
@@ -53,7 +53,7 @@ async function createLessonController(req, res) {
     section_id,
   });
 
-  successResponse(res, "Durum Başarı ile oluşturuldu.", [lesson]);
+  successResponse(res, "Lesson Başarı ile oluşturuldu.", [lesson]);
 }
 
 async function updateLessonController(req, res) {
