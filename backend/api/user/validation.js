@@ -19,6 +19,16 @@ const signup = [
     .withMessage(
       "Şifreniz en az 1 küçük harf, 1 büyük harf, 1 rakam içermeli ve 8 ile 16 karakter arasında olmalıdır."
     ),
+  body("confirm_password")
+    .trim()
+    .notEmpty()
+    .withMessage("Confirm password required.")
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new ApiError("Confirm password and password do not match.", 422);
+      }
+      return true;
+    }),
   validator,
 ];
 
