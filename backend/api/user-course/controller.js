@@ -46,7 +46,7 @@ async function updateUserCourseController(req, res) {
   const id = req.params.id;
 
   await getUniqueUserCourse(id);
-  const userCourse = updateUserCourse(id, {
+  const userCourse = await updateUserCourse(id, {
     user_id,
     course_id,
     score,

@@ -1,8 +1,8 @@
-const { body, param, query } = require("express-validator");
+const { body, param } = require("express-validator");
 const { validator } = require("../../middleware/validator");
 
 const getPlan = [
-  query("id")
+  param("id")
     .trim()
     .notEmpty()
     .withMessage("id is required")
@@ -12,7 +12,7 @@ const getPlan = [
 ];
 
 const deletePlan = [
-  query("id")
+  param("id")
     .trim()
     .notEmpty()
     .withMessage("id is required")
@@ -60,7 +60,7 @@ const toggleActive = [
 ];
 
 const updatePlan = [
-  query("id")
+  param("id")
     .trim()
     .notEmpty()
     .withMessage("id is required")
@@ -83,16 +83,7 @@ const updatePlan = [
       }
       return true;
     }),
-  body("unit")
-    .exists()
-    .withMessage("Unit is required")
-    .isIn(["day", "week", "month", "year"])
-    .withMessage("Unit must be one of: day, week, month, year"),
-  body("duration")
-    .exists()
-    .withMessage("Duration is required")
-    .isInt({ gt: 0 })
-    .withMessage("Duration must be a positive integer"),
+  body("duration").exists().withMessage("Duration is required"),
   body("description")
     .optional()
     .isString()

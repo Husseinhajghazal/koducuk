@@ -80,8 +80,8 @@ async function checkNoLesson(index, section_id, id) {
   let lesson;
 
   try {
-    lesson = await prisma.lesson.findUnique({
-      where: { index, section_id, ...(id && { NOT: { id } }) },
+    lesson = await prisma.lesson.findFirst({
+      where: { section_id, index, ...(id && { NOT: { id } }) },
     });
   } catch (e) {
     console.log(e);
