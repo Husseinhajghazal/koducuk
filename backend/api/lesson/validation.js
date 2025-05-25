@@ -1,4 +1,4 @@
-const { body, param, query } = require("express-validator");
+const { body, param } = require("express-validator");
 const { validator } = require("../../middleware/validator");
 
 const createLesson = [
@@ -19,7 +19,7 @@ const createLesson = [
 ];
 
 const updateLesson = [
-  query("id")
+  param("id")
     .trim()
     .notEmpty()
     .withMessage("id is required")
@@ -42,7 +42,7 @@ const updateLesson = [
 ];
 
 const toggleActive = [
-  query("id")
+  param("id")
     .trim()
     .notEmpty()
     .withMessage("id is required")
@@ -52,7 +52,7 @@ const toggleActive = [
 ];
 
 const getLesson = [
-  query("id")
+  param("id")
     .trim()
     .notEmpty()
     .withMessage("id is required")
@@ -62,7 +62,7 @@ const getLesson = [
 ];
 
 const deleteLesson = [
-  query("id")
+  param("id")
     .trim()
     .notEmpty()
     .withMessage("id is required")

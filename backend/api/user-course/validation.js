@@ -32,13 +32,13 @@ const deleteUserCourse = [
 ];
 
 const createUserCourse = [
-  param("user_id")
+  body("user_id")
     .trim()
     .notEmpty()
     .withMessage("user id gereklidir.")
     .isMongoId()
     .withMessage("MongoDb id cinsinden olmalı."),
-  param("course_id")
+  body("course_id")
     .trim()
     .notEmpty()
     .withMessage("course id gereklidir.")
@@ -54,13 +54,13 @@ const updateUserCourse = [
     .withMessage("id gereklidir.")
     .isMongoId()
     .withMessage("MongoDb id cinsinden olmalı."),
-  param("user_id")
+  body("user_id")
     .trim()
     .notEmpty()
     .withMessage("user id gereklidir.")
     .isMongoId()
     .withMessage("MongoDb id cinsinden olmalı."),
-  param("course_id")
+  body("course_id")
     .trim()
     .notEmpty()
     .withMessage("course id gereklidir.")

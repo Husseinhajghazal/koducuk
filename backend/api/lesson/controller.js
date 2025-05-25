@@ -53,7 +53,7 @@ async function createLessonController(req, res) {
     section_id,
   });
 
-  successResponse(res, "Lesson Başarı ile oluşturuldu.", [lesson]);
+  successResponse(res, "Ders Başarı ile oluşturuldu.", [lesson]);
 }
 
 async function updateLessonController(req, res) {
