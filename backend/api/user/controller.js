@@ -152,7 +152,7 @@ async function forgetPassword(req, res) {
 
   checkActive(user.active);
 
-  await sendMail("password", token, email, "Şifre güncelleme | Arniva");
+  await sendMail("unutum", token, email, "Şifre güncelleme | Arniva");
 
   successResponse(
     res,
