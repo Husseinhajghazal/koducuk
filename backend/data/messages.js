@@ -1,5 +1,5 @@
 const emailData = {
-  activate: {
+  uyeol: {
     title: "E-posta Onaylama | Koducuk",
     head: "Hoş geldiniz!",
     src: "https://img.icons8.com/clouds/100/000000/handshake.png",

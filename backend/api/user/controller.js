@@ -27,7 +27,7 @@ async function signup(req, res) {
     password,
   });
 
-  await sendMail("activate", token, email, "E-posta Onaylama | Koducuk");
+  await sendMail("uyeol", token, email, "E-posta Onaylama | Koducuk");
 
   successResponse(
     res,
