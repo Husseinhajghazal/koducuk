@@ -27,7 +27,7 @@ async function signup(req, res) {
     password,
   });
 
-  await sendMail("activate", token, email, "E-posta Onaylama | Koducuk");
+  await sendMail("uyeol", token, email, "E-posta Onaylama | Koducuk");
 
   successResponse(
     res,
@@ -152,7 +152,7 @@ async function forgetPassword(req, res) {
 
   checkActive(user.active);
 
-  await sendMail("password", token, email, "Şifre güncelleme | Arniva");
+  await sendMail("unutum", token, email, "Şifre güncelleme | Arniva");
 
   successResponse(
     res,

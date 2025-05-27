@@ -1,5 +1,5 @@
 const emailData = {
-  activate: {
+  uyeol: {
     title: "E-posta Onaylama | Koducuk",
     head: "Hoş geldiniz!",
     src: "https://img.icons8.com/clouds/100/000000/handshake.png",
@@ -13,7 +13,7 @@ const emailData = {
     text: "Cevabınız evet ise, ilk önce yapmanız gerekenler yeni hesabını onayla. Aşağıdaki düğmeye basmanız yeterli.",
     button: "Onaylıyorum",
   },
-  password: {
+  unutum: {
     title: "Şifreniz Güncelleme | Koducuk",
     head: "Şifrenizi güncellemek ister misiniz?",
     src: "https://img.icons8.com/?size=100&id=jpVAuvLSFhBm&format=png&color=000000",
