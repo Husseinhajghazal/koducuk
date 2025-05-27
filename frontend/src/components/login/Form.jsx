@@ -7,6 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
+import Button from "../ui/Button";
 
 const initialValues = {
   email: "",
