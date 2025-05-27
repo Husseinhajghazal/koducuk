@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "@/components/layout/Container";
+import Button from "../ui/Button";
 
 const DividerSection = () => {
   return (
@@ -11,9 +11,13 @@ const DividerSection = () => {
               platformumuz hakkında daha fazla bilgi edinin
             </h4>
             <a href="/hakkimizda">
-              <button className="bg-transparent border-2 w-full md:w-max border-white hover:bg-ai-purple hover:border-ai-purple duration-300 text-white rounded-xl py-4 px-8 font-bold">
+              <Button
+                type="button"
+                variant="outline"
+                className="py-4 px-8 w-full md:max-w"
+              >
                 Hakkımızda
-              </button>
+              </Button>
             </a>
           </div>
         </div>

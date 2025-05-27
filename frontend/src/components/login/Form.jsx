@@ -92,17 +92,13 @@ const Form = () => {
               error={errors.password}
             />
           </div>
-          <button
+          <Button
             type="submit"
-            className={twMerge(
-              "bg-ai-purple border-2 w-max border-ai-purple hover:bg-transparent duration-300 text-white rounded-xl py-2 md:py-4 px-8 font-bold cursor-pointer",
-              isSubmitting &&
-                "bg-kc-gray border-kc-gray hover:bg-kc-gray cursor-progress"
-            )}
-            disabled={isSubmitting}
+            className="rounded-xl py-2 md:py-4 px-8"
+            isSubmitting={isSubmitting}
           >
             Giriş Yap
-          </button>
+          </Button>
         </form>
       )}
     </Formik>
