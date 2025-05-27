@@ -6,6 +6,7 @@ import Container from "@/components/layout/Container";
 import BurgerIcon from "@/assets/icons/burger.svg";
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
+import Button from "../ui/Button";
 
 const navItems = [
   {
@@ -56,14 +57,15 @@ export const Header = () => {
                 </li>
               ))}
             </ul>
-            <a href="/giris">
-              <button className="hidden lg:block bg-ai-purple border-2 w-max border-ai-purple hover:bg-transparent duration-300 text-white rounded-xl py-4 px-8 font-bold">
+            <Link href="/giris">
+              <Button type="button" className="hidden lg:block">
                 Giriş Yap
-              </button>
-            </a>
-            <button
+              </Button>
+            </Link>
+            <Button
               onClick={toggleShow}
-              className="block lg:hidden bg-ai-purple border-2 w-max border-ai-purple hover:bg-transparent duration-300 text-white rounded-xl p-3 font-bold"
+              type="button"
+              className="block lg:hidden p-3"
             >
               <Image
                 src={BurgerIcon}
@@ -71,7 +73,7 @@ export const Header = () => {
                 width={30}
                 height={30}
               />
-            </button>
+            </Button>
           </div>
         </Container>
       </div>

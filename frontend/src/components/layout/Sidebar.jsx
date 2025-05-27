@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Background from "./Background";
 import React from "react";
 import Link from "next/link";
+import Button from "../ui/Button";
 
 const Sidebar = ({ navItems, show, toggleShow }) => {
   return (
@@ -28,11 +29,11 @@ const Sidebar = ({ navItems, show, toggleShow }) => {
                 </li>
               ))}
             </ul>
-            <a href="/giris">
-              <button className="bg-ai-purple border-2 w-full border-ai-purple hover:bg-transparent duration-300 text-white rounded-xl py-4 px-8 font-bold">
+            <Link href="/giris">
+              <Button type="button" className="w-full">
                 Giriş Yap
-              </button>
-            </a>
+              </Button>
+            </Link>
           </motion.aside>
         </React.Fragment>
       )}

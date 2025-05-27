@@ -1,6 +1,7 @@
 import Container from "@/components/layout/Container";
 import heroImage from "@/assets/images/hero-image.webp";
 import Image from "next/image";
+import Button from "../ui/Button";
 
 const HeroSection = () => {
   return (
@@ -17,9 +18,9 @@ const HeroSection = () => {
               konusunda online eğitim sunan bir online platformdur.
             </p>
             <a href="/giris">
-              <button className="bg-ai-purple border-2 w-full md:w-max border-ai-purple hover:bg-transparent duration-300 text-white rounded-xl py-4 px-8 font-bold">
+              <Button type="button" className="w-full md:w-max">
                 İlk Adımı At
-              </button>
+              </Button>
             </a>
           </div>
           <div className="lg:w-[700px]">
