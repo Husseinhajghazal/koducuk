@@ -56,7 +56,7 @@ exports.getMailContent = (type, href) => {
       .button {
         display: inline-block;
         padding: 15px 25px;
-        background-color: #F58623;
+        background-color: #6a48f2;
         color: #ffffff !important;
         text-decoration: none;
         border-radius: 4px;
@@ -65,7 +65,7 @@ exports.getMailContent = (type, href) => {
       }
       
       .button:hover {
-        background-color: #DA6F1A;
+        background-color:rgb(87, 56, 211);
       }
       
       @media screen and (max-width: 600px) {
@@ -90,8 +90,8 @@ exports.getMailContent = (type, href) => {
     <table class="main-table" border="0" cellpadding="0" cellspacing="0">
       <!-- Header -->
       <tr>
-        <td style="background-color: #F58623; padding: 20px; text-align: center;">
-          <img src="https://example.com/your-logo.png" alt="Koducuk Logo" width="120" style="display: block; margin: 0 auto;">
+        <td style="background-color: #6a48f2; padding: 20px; text-align: center;">
+          <img src="https://cdn.prod.website-files.com/61d6943d6b5924685ac825ca/64a6a12136e8f756c9df3baa_k-combomark-white.svg" alt="Koducuk Logo" width="120" style="display: block; margin: 0 auto;">
         </td>
       </tr>
       
