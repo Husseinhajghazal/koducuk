@@ -38,7 +38,6 @@ const courses = [
 const CoursesSection = () => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
-
   const handleEnroll = async (courseId) => {
     if (!isAuthenticated) {
       router.push("/giris");
@@ -47,15 +46,16 @@ const CoursesSection = () => {
 
     try {
       const response = await courseService.enrollCourse(courseId);
-      if (response.alreadyEnrolled) {
-        router.push(`/kurslar/${courseId}`);
-        return;
+      if (response.success) {
+        if (response.alreadyEnrolled || response.data) {
+          router.push(`/kurslar/${courseId}`);
+          if (!response.alreadyEnrolled) {
+            toast.success(response.message);
+          }
+        }
       }
-
-      toast.success("Kursa başarıyla katıldınız");
-      router.push(`/kurslar/${courseId}`);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Bir hata oluştu");
+      toast.error(error.message);
     }
   };
 

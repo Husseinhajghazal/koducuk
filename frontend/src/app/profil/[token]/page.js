@@ -1,46 +1,42 @@
 "use client";
 
-import axios from "axios";
-import { use, useLayoutEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { clearUser } from "@/store/userSlice";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import successAnimation from "@/assets/animations/success.json";
 import failAnimation from "@/assets/animations/fail.json";
-import { setLoading, setUser } from "@/store/userSlice";
+import axios from "axios";
 
-export default function Activation({ params }) {
+export default function EmailVerification({ params }) {
   const [success, setSuccess] = useState(null);
   const { token } = use(params);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
-    async function activateAccount() {
+  useEffect(() => {
+    const verifyEmail = async () => {
       try {
-        const response = await axios.get(
-          process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL +
-            "/api/user/activate/" +
-            token
+        await axios.put(
+          process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL + "/api/user/email/" + token
         );
-
-        const { token, expiresIn, ...userData } = response.data.data[0];
-
-        localStorage.setItem("token", token);
-        localStorage.setItem("tokenExpiration", expiresIn);
-        dispatch(setUser({ user: userData, expiresIn }));
-        dispatch(setLoading(false));
-
-        setTimeout(() => {
-          router.push("/");
-        }, 10000);
 
         setSuccess(true);
       } catch (error) {
         setSuccess(false);
       }
-    }
 
-    if (token) {
-      activateAccount();
-    }
-  }, [token]);
+      localStorage.removeItem("token");
+      localStorage.removeItem("tokenExpiration");
+      dispatch(clearUser());
+      setTimeout(() => {
+        router.push("/giris");
+      }, 10000);
+    };
+
+    verifyEmail();
+  }, [dispatch, router, token]);
 
   return (
     <div className="bg-purplish-black h-screen flex flex-col gap-10 items-center justify-center text-white">
@@ -60,13 +56,13 @@ export default function Activation({ params }) {
             className="w-full h-full"
           />
         ) : (
-          "Hesabı Etkinleştirmeye çalışıyoruz..."
+          "Hesabı gücellemeye çalışıyoruz..."
         )}
       </div>
       <p className="text-xl font-semibold">
         {success
-          ? "Hesabınızı Başarı ile etkinleştirdik"
-          : "Maalesef Hesabınızı Etkinleştiremedik"}
+          ? "Hesabınızı Başarı ile güncelledik"
+          : "Maalesef Hesabınızı güncelleyemedik"}
       </p>
     </div>
   );
