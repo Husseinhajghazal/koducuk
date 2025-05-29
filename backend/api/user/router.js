@@ -34,12 +34,6 @@ router.put(
 
 router.put("/email/:token", validation.updateEmail, controller.updateEmail);
 
-router.get(
-  "/activate/:token",
-  validation.activateAccount,
-  controller.activateAccount
-);
-
 router.put(
   "/forget_password/:token",
   validation.updatePasswordByToken,
@@ -56,12 +50,20 @@ router.delete(
 
 router.get("/", authenticate, checkAdmin, controller.getUsersController);
 
+router.get("/me", authenticate, controller.getMe);
+
 router.get(
   "/toggle/:id",
   authenticate,
   checkAdmin,
   validation.toggleActive,
   controller.toggleActive
+);
+
+router.get(
+  "/activate/:token",
+  validation.activateAccount,
+  controller.activateAccount
 );
 
 router.get(

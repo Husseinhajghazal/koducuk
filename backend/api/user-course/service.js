@@ -83,6 +83,23 @@ async function deleteUserCourse(id) {
   }
 }
 
+async function checkNoUserCourse(user_id, course_id) {
+  let userCourse;
+
+  try {
+    userCourse = await prisma.userCourse.findFirst({
+      where: { user_id, course_id },
+    });
+  } catch (e) {
+    console.log(e);
+    throw new ApiError("Error occured while getting user course.", 500);
+  }
+
+  if (userCourse) {
+    throw new ApiError("Bu kursa daha önceden katılmışsınızdır.", 400);
+  }
+}
+
 module.exports = {
   createUserCourse,
   updateUserCourse,

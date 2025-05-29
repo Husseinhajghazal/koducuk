@@ -3,8 +3,9 @@ import Background from "./Background";
 import React from "react";
 import Link from "next/link";
 import Button from "../ui/Button";
+import ProfilePicture from "../ui/ProfilePicture";
 
-const Sidebar = ({ navItems, show, toggleShow }) => {
+const Sidebar = ({ navItems, show, toggleShow, isAuthenticated, user }) => {
   return (
     <AnimatePresence>
       {show && (
@@ -29,11 +30,23 @@ const Sidebar = ({ navItems, show, toggleShow }) => {
                 </li>
               ))}
             </ul>
-            <Link href="/giris">
-              <Button type="button" className="w-full">
-                Giriş Yap
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <Link href="/profil">
+                <ProfilePicture
+                  firstName={user.first_name}
+                  lastName={user.last_name}
+                  showEmail={true}
+                  email={user.email}
+                  className="w-full p-2 hover:bg-black-600 rounded-lg transition-colors"
+                />
+              </Link>
+            ) : (
+              <Link href="/giris">
+                <Button type="button" className="w-full">
+                  Giriş Yap
+                </Button>
+              </Link>
+            )}
           </motion.aside>
         </React.Fragment>
       )}

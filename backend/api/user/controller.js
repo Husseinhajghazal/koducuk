@@ -60,6 +60,20 @@ async function login(req, res) {
   ]);
 }
 
+async function getMe(req, res) {
+  const { password, ...user } = req.user;
+
+  token = await signToken({ id: user.id });
+
+  successResponse(res, "Kullanıcı başarı ile çekildi.", [
+    {
+      ...user,
+      token,
+      expiresIn: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    },
+  ]);
+}
+
 async function activateAccount(req, res) {
   let user = await verifyToken(req.params.token);
 
@@ -201,6 +215,7 @@ async function deleteUserController(req, res) {
 
 module.exports = {
   login,
+  getMe,
   signup,
   updateInfo,
   updateEmail,

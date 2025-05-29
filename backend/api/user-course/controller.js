@@ -30,9 +30,9 @@ async function getUserCourse(req, res) {
 }
 
 async function createUserCourseController(req, res) {
-  const { user_id, course_id } = req.body;
+  const { course_id } = req.body;
 
-  const userCourse = createUserCourse({ user_id, course_id });
+  const userCourse = createUserCourse({ user_id: req.user.id, course_id });
 
   successResponse(
     res,
@@ -42,12 +42,12 @@ async function createUserCourseController(req, res) {
 }
 
 async function updateUserCourseController(req, res) {
-  const { user_id, course_id, score, reached_Lesson } = req.body;
+  const { course_id, score, reached_Lesson } = req.body;
   const id = req.params.id;
 
   await getUniqueUserCourse(id);
   const userCourse = await updateUserCourse(id, {
-    user_id,
+    user_id: req.user.id,
     course_id,
     score,
     reached_Lesson,
