@@ -139,7 +139,7 @@ async function updateEmailRequest(req, res) {
 
   const token = await signToken({ old_email, new_email });
 
-  await sendMail("update", token, old_email, "E-postan güncelleme | Arniva");
+  await sendMail("profil", token, old_email, "E-postan güncelleme | Arniva");
 
   successResponse(
     res,

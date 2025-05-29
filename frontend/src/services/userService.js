@@ -25,4 +25,49 @@ export const userService = {
       data: response.data.data[0], // Backend returns data in an array
     };
   },
+
+  updateInfo: async (data) => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    const response = await axios.put(baseURL, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return {
+      message: response.data.message,
+      data: response.data.data[0],
+    };
+  },
+
+  updatePassword: async (data) => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    const response = await axios.put(`${baseURL}/password`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return {
+      message: response.data.message,
+      data: response.data.data[0],
+    };
+  },
+
+  updateEmailRequest: async (data) => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    const response = await axios.post(`${baseURL}/email`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return {
+      message: response.data.message,
+      data: response.data.data[0],
+    };
+  },
 };

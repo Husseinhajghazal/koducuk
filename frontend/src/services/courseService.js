@@ -17,15 +17,49 @@ export const courseService = {
           },
         }
       );
-      return response.data;
+      return {
+        success: true,
+        message: response.data.message,
+        data: response.data.data[0],
+      };
     } catch (error) {
-      if (
-        error.response?.data?.message ===
-        "Bu kursa daha önceden katılmışsınızdır."
-      ) {
-        return { alreadyEnrolled: true, courseId };
+      const errorMessage = error.response?.data?.message;
+      if (errorMessage === "Bu kursa daha önceden katılmışsınızdır.") {
+        return {
+          success: true,
+          alreadyEnrolled: true,
+          courseId,
+        };
       }
-      throw error;
+      throw {
+        success: false,
+        message: errorMessage || "Kursa katılırken bir hata oluştu",
+      };
+    }
+  },
+
+  getUserCourses: async () => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    try {
+      const response = await axios.get(baseURL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return {
+        success: true,
+        message: response.data.message,
+        data: response.data.data,
+      };
+    } catch (error) {
+      throw {
+        success: false,
+        message:
+          error.response?.data?.message ||
+          "Kurslar yüklenirken bir hata oluştu",
+      };
     }
   },
 };

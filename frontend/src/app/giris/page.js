@@ -1,8 +1,26 @@
+"use client";
+
 import LoginImage from "@/assets/images/login.jpg";
 import Form from "@/components/login/Form";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Giris() {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/");
+    }
+  }, [isAuthenticated, router]);
+
+  if (isAuthenticated) {
+    return null;
+  }
+
   return (
     <main>
       <div className="h-screen w-screen grid lg:grid-cols-3">

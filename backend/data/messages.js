@@ -6,7 +6,7 @@ const emailData = {
     text: "Aramıza gireceğiniz için heyecanlıyız. İlk önce yapmanız gerekenler hesabını onayla. Aşağıdaki düğmeye basmanız yeterli.",
     button: "Hesabı Onaylayın",
   },
-  update: {
+  profil: {
     title: "E-posta Güncelleme | Koducuk",
     head: "E-postanızı güncellemek ister misiniz?",
     src: "https://img.icons8.com/?size=100&id=AltjBjg7FDhG&format=png&color=000000",

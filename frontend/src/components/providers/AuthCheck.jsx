@@ -7,6 +7,7 @@ import { userService } from "@/services/userService";
 
 export default function AuthCheck({ children }) {
   const dispatch = useDispatch();
+
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem("token");
@@ -39,16 +40,13 @@ export default function AuthCheck({ children }) {
         localStorage.removeItem("token");
         localStorage.removeItem("tokenExpiration");
         dispatch(clearUser());
+      } finally {
+        dispatch(setLoading(false));
       }
     };
 
     checkAuth();
-
-    // Set up interval to check token expiration
-    const interval = setInterval(checkAuth, 60000); // Check every minute
-
-    return () => clearInterval(interval);
-  }, [dispatch]);
+  }, []); // Run once on component mount
 
   return children;
 }
