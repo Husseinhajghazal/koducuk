@@ -3,11 +3,13 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Input from "@/components/ui/Input";
-import axios from "axios";
 import { toast } from "react-toastify";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
 import Button from "../ui/Button";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/store/userSlice";
+import { userService } from "@/services/userService";
+import { useRouter } from "next/navigation";
 
 const initialValues = {
   email: "",
@@ -29,16 +31,23 @@ const validationSchema = Yup.object({
 });
 
 const Form = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const handleSubmit = async (values) => {
     try {
-      const response = await axios.post(
-        process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL + "/api/user/login",
-        values
-      );
+      const response = await userService.login(values);
+      const { token, expiresIn, ...userData } = response.data;
 
-      toast.success(response.data.message);
+      localStorage.setItem("token", token);
+      localStorage.setItem("tokenExpiration", expiresIn);
+
+      dispatch(setUser({ user: userData, expiresIn }));
+
+      toast.success(response.message);
+      router.push("/");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "An error occurred");
     }
   };
 

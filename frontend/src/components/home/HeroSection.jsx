@@ -1,9 +1,15 @@
+"use client";
+
 import Container from "@/components/layout/Container";
 import heroImage from "@/assets/images/hero-image.webp";
 import Image from "next/image";
 import Button from "../ui/Button";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
   return (
     <div className="bg-purplish-black overflow-x-clip">
       <Container>
@@ -16,12 +22,16 @@ const HeroSection = () => {
             <p className="text-kc-gray text-center md:text-start md:text-lg font-medium">
               koducuk, 5-18 yaş aralığındaki çocuklara yönelik, kodlama
               konusunda online eğitim sunan bir online platformdur.
-            </p>
-            <a href="/giris">
-              <Button type="button" className="w-full md:w-max">
-                İlk Adımı At
-              </Button>
-            </a>
+            </p>{" "}
+            <Button
+              type="button"
+              className="w-full md:w-max"
+              onClick={() =>
+                router.push(isAuthenticated ? "/kurslar" : "/giris")
+              }
+            >
+              İlk Adımı At
+            </Button>
           </div>
           <div className="lg:w-[700px]">
             <Image src={heroImage} alt="hero image" />

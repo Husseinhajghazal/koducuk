@@ -7,6 +7,9 @@ import BurgerIcon from "@/assets/icons/burger.svg";
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import Button from "../ui/Button";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import ProfilePicture from "../ui/ProfilePicture";
 
 const navItems = [
   {
@@ -29,6 +32,8 @@ const navItems = [
 
 export const Header = () => {
   const [show, setShow] = useState(false);
+  const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
 
   const toggleShow = () => setShow((currentValue) => !currentValue);
 
@@ -57,11 +62,23 @@ export const Header = () => {
                 </li>
               ))}
             </ul>
-            <Link href="/giris">
-              <Button type="button" className="hidden lg:block">
-                Giriş Yap
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <div
+                className="hidden lg:block cursor-pointer"
+                onClick={() => router.push("/profil")}
+              >
+                <ProfilePicture
+                  firstName={user.first_name}
+                  lastName={user.last_name}
+                />
+              </div>
+            ) : (
+              <Link href="/giris">
+                <Button type="button" className="hidden lg:block">
+                  Giriş Yap
+                </Button>
+              </Link>
+            )}
             <Button
               onClick={toggleShow}
               type="button"
@@ -77,7 +94,13 @@ export const Header = () => {
           </div>
         </Container>
       </div>
-      <Sidebar navItems={navItems} show={show} toggleShow={toggleShow} />
+      <Sidebar
+        navItems={navItems}
+        show={show}
+        toggleShow={toggleShow}
+        isAuthenticated={isAuthenticated}
+        user={user}
+      />
     </React.Fragment>
   );
 };

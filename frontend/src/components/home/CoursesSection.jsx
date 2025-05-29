@@ -1,9 +1,15 @@
+"use client";
+
 import Container from "../layout/Container";
 import Card from "../ui/Card";
 import SectionHeader from "../ui/SectionHeader";
 import HtmlIcon from "@/assets/icons/html.svg";
 import GithubIcon from "@/assets/icons/github.svg";
 import InstagramIcon from "@/assets/icons/instagram.svg";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { courseService } from "@/services/courseService";
+import { toast } from "react-toastify";
 
 const courses = [
   {
@@ -30,6 +36,29 @@ const courses = [
 ];
 
 const CoursesSection = () => {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  const handleEnroll = async (courseId) => {
+    if (!isAuthenticated) {
+      router.push("/giris");
+      return;
+    }
+
+    try {
+      const response = await courseService.enrollCourse(courseId);
+      if (response.alreadyEnrolled) {
+        router.push(`/kurslar/${courseId}`);
+        return;
+      }
+
+      toast.success("Kursa başarıyla katıldınız");
+      router.push(`/kurslar/${courseId}`);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Bir hata oluştu");
+    }
+  };
+
   return (
     <div className="bg-purplish-black py-20">
       <Container>
@@ -45,7 +74,11 @@ const CoursesSection = () => {
       <Container>
         <div className="grid md:grid-cols-2 mt-20 lg:grid-cols-3 overflow-x-clip justify-center gap-6 lg:gap-12">
           {courses.map((course) => (
-            <Card key={course.id} {...course} />
+            <Card
+              key={course.id}
+              {...course}
+              onEnroll={() => handleEnroll(course.id)}
+            />
           ))}
         </div>
       </Container>

@@ -32,12 +32,6 @@ const deleteUserCourse = [
 ];
 
 const createUserCourse = [
-  body("user_id")
-    .trim()
-    .notEmpty()
-    .withMessage("user id gereklidir.")
-    .isMongoId()
-    .withMessage("MongoDb id cinsinden olmalı."),
   body("course_id")
     .trim()
     .notEmpty()
@@ -52,12 +46,6 @@ const updateUserCourse = [
     .trim()
     .notEmpty()
     .withMessage("id gereklidir.")
-    .isMongoId()
-    .withMessage("MongoDb id cinsinden olmalı."),
-  body("user_id")
-    .trim()
-    .notEmpty()
-    .withMessage("user id gereklidir.")
     .isMongoId()
     .withMessage("MongoDb id cinsinden olmalı."),
   body("course_id")
