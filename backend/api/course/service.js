@@ -25,7 +25,15 @@ async function getUniqueCourse(id) {
   let course;
 
   try {
-    course = await prisma.course.findUnique({ where: { id } });
+    course = await prisma.course.findUnique({
+      where: { id },
+      include: {
+        sections: { include: { lessons: { orderBy: { index: "asc" } } } },
+        // user_courses: { include: { user: true }, orderBy: { score: "desc" } },
+      },
+    });
+
+    console.log(course);
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting course.", 500);
