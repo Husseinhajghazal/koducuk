@@ -1,43 +1,40 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Container from "../layout/Container";
-import Card from "../ui/Card";
+import CourseCard from "../ui/CourseCard";
 import SectionHeader from "../ui/SectionHeader";
-import HtmlIcon from "@/assets/icons/html.svg";
-import GithubIcon from "@/assets/icons/github.svg";
-import InstagramIcon from "@/assets/icons/instagram.svg";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { courseService } from "@/services/courseService";
 import { toast } from "react-toastify";
-
-const courses = [
-  {
-    id: "6650a1c9e3f5e8e4569d2c02",
-    name: "Advanced TypeScript",
-    image_url: GithubIcon,
-    created_at: new Date("2024-05-05T14:30:00Z"),
-    updated_at: new Date("2024-05-05T14:30:00Z"),
-  },
-  {
-    id: "6650a1c9e3f5e8e4569d2c01",
-    name: "JavaScript for Beginners",
-    image_url: HtmlIcon,
-    created_at: new Date("2024-05-01T10:00:00Z"),
-    updated_at: new Date("2024-05-01T10:00:00Z"),
-  },
-  {
-    id: "6650a1c9e3f5e8e4569d2c03",
-    name: "Fullstack Development with Node.js",
-    image_url: InstagramIcon,
-    created_at: new Date("2024-05-10T09:15:00Z"),
-    updated_at: new Date("2024-05-10T09:15:00Z"),
-  },
-];
+import { motion } from "framer-motion";
+import axios from "axios";
 
 const CoursesSection = () => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const { data } = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL}/api/course/active`
+        );
+
+        setCourses(data.data);
+      } catch (error) {
+        console.error("Failed to fetch courses:", error);
+        toast.error("Kurslar yüklenirken bir hata oluştu");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
   const handleEnroll = async (courseId) => {
     if (!isAuthenticated) {
       router.push("/giris");
@@ -58,7 +55,6 @@ const CoursesSection = () => {
       toast.error(error.message);
     }
   };
-
   return (
     <div className="bg-purplish-black py-20">
       <Container>
@@ -71,17 +67,35 @@ const CoursesSection = () => {
           />
         </div>
       </Container>
-      <Container>
-        <div className="grid md:grid-cols-2 mt-20 lg:grid-cols-3 overflow-x-clip justify-center gap-6 lg:gap-12">
-          {courses.map((course) => (
-            <Card
-              key={course.id}
-              {...course}
-              onEnroll={() => handleEnroll(course.id)}
-            />
-          ))}
+
+      {loading ? (
+        <div className="flex justify-center mt-20">
+          <div className="w-8 h-8 border-4 border-ai-purple border-t-transparent rounded-full animate-spin"></div>
         </div>
-      </Container>
+      ) : (
+        <div className="pt-20 pb-10 overflow-hidden">
+          <motion.div
+            className="flex gap-6"
+            animate={{
+              x: [0, -1920],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            {" "}
+            {[...courses, ...courses].map((course, index) => (
+              <CourseCard
+                key={course.id + index}
+                {...course}
+                onEnroll={handleEnroll}
+              />
+            ))}
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

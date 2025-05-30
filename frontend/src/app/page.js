@@ -5,7 +5,7 @@ import DividerSection from "@/components/home/DividerSection";
 import HeroSection from "@/components/home/HeroSection";
 import TapeSection from "@/components/home/TapeSection";
 import Footer from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
+import Header from "@/components/layout/Header";
 import React from "react";
 
 export default function Home() {
