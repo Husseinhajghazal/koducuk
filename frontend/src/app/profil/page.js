@@ -10,6 +10,13 @@ import ProfileHeader from "@/components/profile/ProfileHeader";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { clearUser } from "@/store/userSlice";
+import Loader from "@/components/ui/Loader";
+
+const tabs = [
+  { id: "info", label: "Bilgilerim" },
+  { id: "password", label: "Şifre Değiştir" },
+  { id: "email", label: "E-posta Değiştir" },
+];
 
 export default function Profil() {
   const [activeTab, setActiveTab] = useState("info");
@@ -18,10 +25,10 @@ export default function Profil() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    if (!isAuthenticated) {
       router.push("/giris");
     }
-  }, [isAuthenticated, isLoading, router]);
+  }, [isAuthenticated, router]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -31,22 +38,8 @@ export default function Profil() {
   };
 
   if (isLoading) {
-    return (
-      <div className="h-screen w-screen bg-purplish-black flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-ai-purple border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <Loader />;
   }
-
-  if (!user) {
-    return null;
-  }
-
-  const tabs = [
-    { id: "info", label: "Bilgilerim" },
-    { id: "password", label: "Şifre Değiştir" },
-    { id: "email", label: "E-posta Değiştir" },
-  ];
 
   return (
     <main className="min-h-screen bg-purplish-black py-20">

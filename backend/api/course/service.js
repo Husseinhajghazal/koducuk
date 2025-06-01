@@ -25,7 +25,21 @@ async function getUniqueCourse(id) {
   let course;
 
   try {
-    course = await prisma.course.findUnique({ where: { id } });
+    course = await prisma.course.findUnique({
+      where: { id },
+      include: {
+        sections: {
+          include: {
+            lessons: { orderBy: { index: "asc" }, where: { active: true } },
+          },
+          where: { active: true },
+        },
+        user_courses: {
+          include: { user: true },
+          orderBy: { score: "desc" },
+        },
+      },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting course.", 500);
@@ -55,9 +69,45 @@ async function getCourse(key, value) {
   }
 }
 
-async function getCourses(where) {
+async function getCourses(
+  where = {},
+  page = 1,
+  limit = 10,
+  search = "",
+  sortOrder = "asc"
+) {
   try {
-    return await prisma.course.findMany(where && { where });
+    const skip = (page - 1) * limit;
+
+    // Add search condition to where clause if search is provided
+    const whereClause = {
+      ...where,
+      ...(search && {
+        name: {
+          contains: search,
+          mode: "insensitive", // Case-insensitive search
+        },
+      }),
+    };
+
+    const [total, courses] = await prisma.$transaction([
+      prisma.course.count({ where: whereClause }),
+      prisma.course.findMany({
+        where: whereClause,
+        skip,
+        take: limit,
+        orderBy: {
+          name: sortOrder,
+        },
+      }),
+    ]);
+
+    return {
+      data: courses,
+      total,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+    };
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting courses.", 500);

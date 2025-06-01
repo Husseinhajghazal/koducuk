@@ -27,19 +27,17 @@ export default function Activation({ params }) {
         dispatch(setUser({ user: userData, expiresIn }));
         dispatch(setLoading(false));
 
+        setSuccess(true);
+
         setTimeout(() => {
           router.push("/");
         }, 10000);
-
-        setSuccess(true);
       } catch (error) {
         setSuccess(false);
       }
     }
 
-    if (token) {
-      activateAccount();
-    }
+    activateAccount();
   }, [token]);
 
   return (

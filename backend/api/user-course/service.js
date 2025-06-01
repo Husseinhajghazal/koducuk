@@ -107,4 +107,5 @@ module.exports = {
   deleteUserCourse,
   getUniqueUserCourse,
   getUsersCourses,
+  checkNoUserCourse,
 };

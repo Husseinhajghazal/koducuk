@@ -7,7 +7,7 @@ export const userService = {
     const response = await axios.post(`${baseURL}/login`, credentials);
     return {
       message: response.data.message,
-      data: response.data.data[0], // Backend returns data in an array
+      data: response.data.data[0],
     };
   },
 
@@ -22,7 +22,7 @@ export const userService = {
     });
     return {
       message: response.data.message,
-      data: response.data.data[0], // Backend returns data in an array
+      data: response.data.data[0],
     };
   },
 

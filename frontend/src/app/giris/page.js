@@ -17,10 +17,6 @@ export default function Giris() {
     }
   }, [isAuthenticated, router]);
 
-  if (isAuthenticated) {
-    return null;
-  }
-
   return (
     <main>
       <div className="h-screen w-screen grid lg:grid-cols-3">

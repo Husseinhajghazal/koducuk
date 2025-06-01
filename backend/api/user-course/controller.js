@@ -4,6 +4,7 @@ const {
   getUniqueUserCourse,
   getUsersCourses,
   updateUserCourse,
+  checkNoUserCourse,
 } = require("./service");
 const successResponse = require("../../utils/success-respnse");
 
@@ -19,6 +20,17 @@ async function getUsersCourse(req, res) {
   );
 }
 
+async function isSubscribed(req, res) {
+  const course_id = req.params.course_id;
+  const user_id = req.user.id;
+
+  const usersCourse = await getUsersCourses({ course_id, user_id });
+
+  successResponse(res, "Bu kursa daha önceden katılmışsınız.", [
+    usersCourse.length > 0 ? true : false,
+  ]);
+}
+
 async function getUserCourse(req, res) {
   const id = req.params.id;
 
@@ -31,8 +43,11 @@ async function getUserCourse(req, res) {
 
 async function createUserCourseController(req, res) {
   const { course_id } = req.body;
+  const user_id = req.user.id;
 
-  const userCourse = createUserCourse({ user_id: req.user.id, course_id });
+  checkNoUserCourse(user_id, course_id);
+
+  const userCourse = createUserCourse({ user_id, course_id });
 
   successResponse(
     res,
@@ -79,4 +94,5 @@ module.exports = {
   createUserCourseController,
   updateUserCourseController,
   deleteUserCourseController,
+  isSubscribed,
 };

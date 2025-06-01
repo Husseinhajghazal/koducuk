@@ -11,6 +11,16 @@ const getUsersCourse = [
   validator,
 ];
 
+const isSubscribed = [
+  param("course_id")
+    .trim()
+    .notEmpty()
+    .withMessage("course id gereklidir.")
+    .isMongoId()
+    .withMessage("MongoDb id cinsinden olmalı."),
+  validator,
+];
+
 const getUserCourse = [
   param("id")
     .trim()
@@ -71,4 +81,5 @@ module.exports = {
   deleteUserCourse,
   createUserCourse,
   updateUserCourse,
+  isSubscribed,
 };

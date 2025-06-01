@@ -18,7 +18,6 @@ export default function AuthCheck({ children }) {
         return;
       }
 
-      // Check if token has expired
       if (new Date(tokenExpiration) <= new Date()) {
         localStorage.removeItem("token");
         localStorage.removeItem("tokenExpiration");
@@ -30,13 +29,12 @@ export default function AuthCheck({ children }) {
         const response = await userService.getMe();
         const { token: newToken, expiresIn, ...userData } = response.data;
 
-        // Update token and expiration
         localStorage.setItem("token", newToken);
         localStorage.setItem("tokenExpiration", expiresIn);
 
         dispatch(setUser({ user: userData, expiresIn }));
       } catch (error) {
-        console.error("Auth check failed:", error);
+        console.error(error);
         localStorage.removeItem("token");
         localStorage.removeItem("tokenExpiration");
         dispatch(clearUser());
@@ -46,7 +44,7 @@ export default function AuthCheck({ children }) {
     };
 
     checkAuth();
-  }, []); // Run once on component mount
+  }, []);
 
   return children;
 }

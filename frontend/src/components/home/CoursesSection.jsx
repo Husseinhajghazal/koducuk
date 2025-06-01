@@ -1,43 +1,18 @@
 "use client";
 
 import Container from "../layout/Container";
-import Card from "../ui/Card";
+import CourseCard from "../ui/CourseCard";
 import SectionHeader from "../ui/SectionHeader";
-import HtmlIcon from "@/assets/icons/html.svg";
-import GithubIcon from "@/assets/icons/github.svg";
-import InstagramIcon from "@/assets/icons/instagram.svg";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { courseService } from "@/services/courseService";
+import { userCourseService } from "@/services/userCourseService";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
-const courses = [
-  {
-    id: "6650a1c9e3f5e8e4569d2c02",
-    name: "Advanced TypeScript",
-    image_url: GithubIcon,
-    created_at: new Date("2024-05-05T14:30:00Z"),
-    updated_at: new Date("2024-05-05T14:30:00Z"),
-  },
-  {
-    id: "6650a1c9e3f5e8e4569d2c01",
-    name: "JavaScript for Beginners",
-    image_url: HtmlIcon,
-    created_at: new Date("2024-05-01T10:00:00Z"),
-    updated_at: new Date("2024-05-01T10:00:00Z"),
-  },
-  {
-    id: "6650a1c9e3f5e8e4569d2c03",
-    name: "Fullstack Development with Node.js",
-    image_url: InstagramIcon,
-    created_at: new Date("2024-05-10T09:15:00Z"),
-    updated_at: new Date("2024-05-10T09:15:00Z"),
-  },
-];
-
-const CoursesSection = () => {
+const CoursesSection = ({ courses = [] }) => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+
   const handleEnroll = async (courseId) => {
     if (!isAuthenticated) {
       router.push("/giris");
@@ -45,17 +20,11 @@ const CoursesSection = () => {
     }
 
     try {
-      const response = await courseService.enrollCourse(courseId);
-      if (response.success) {
-        if (response.alreadyEnrolled || response.data) {
-          router.push(`/kurslar/${courseId}`);
-          if (!response.alreadyEnrolled) {
-            toast.success(response.message);
-          }
-        }
-      }
+      const response = await userCourseService.enrollCourse(courseId);
+      toast.success(response.message);
+      router.push(`/kurslar/${courseId}`);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -71,17 +40,49 @@ const CoursesSection = () => {
           />
         </div>
       </Container>
-      <Container>
-        <div className="grid md:grid-cols-2 mt-20 lg:grid-cols-3 overflow-x-clip justify-center gap-6 lg:gap-12">
-          {courses.map((course) => (
-            <Card
-              key={course.id}
-              {...course}
-              onEnroll={() => handleEnroll(course.id)}
-            />
-          ))}
+      <div className="pt-20 pb-10 overflow-hidden">
+        <div className="relative">
+          <motion.div
+            className="flex gap-6"
+            animate={{
+              x: [0, -100 * courses.length],
+            }}
+            transition={{
+              x: {
+                duration: 20,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "linear",
+              },
+            }}
+          >
+            {/* First set of courses */}
+            {courses.map((course, index) => (
+              <motion.div
+                key={`first-${course.id}`}
+                className="flex-shrink-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <CourseCard {...course} onEnroll={handleEnroll} />
+              </motion.div>
+            ))}
+            {/* Duplicate set for seamless loop */}
+            {courses.map((course, index) => (
+              <motion.div
+                key={`second-${course.id}`}
+                className="flex-shrink-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <CourseCard {...course} onEnroll={handleEnroll} />
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 };

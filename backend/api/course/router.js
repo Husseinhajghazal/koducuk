@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/", authenticate, checkAdmin, controller.getCoursesController);
 
-router.get("/active", authenticate, controller.getActiveCourses);
+router.get("/active", controller.getActiveCourses);
 
 router.get(
   "/toggle/:id",

@@ -5,8 +5,10 @@ import AuthCheck from "@/components/providers/AuthCheck";
 import "react-toastify/dist/ReactToastify.css";
 
 export const metadata = {
-  title: "Koducuk",
-  description: "Çocuklara yönelik yazılım eğitim sunan platformdur",
+  title: "Koducuk | Çocuklar için Kodlama Eğitimi",
+  description:
+    "Çocuklar için eğlenceli ve interaktif kodlama eğitimi platformu. Web geliştirme, oyun programlama ve daha fazlası.",
+  keywords: "çocuk kodlama, programlama eğitimi, web geliştirme, çocuk eğitimi",
 };
 
 export default function RootLayout({ children }) {

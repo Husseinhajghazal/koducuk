@@ -30,7 +30,7 @@ const navItems = [
   },
 ];
 
-export const Header = () => {
+const Header = () => {
   const [show, setShow] = useState(false);
   const { user, isAuthenticated } = useAuth();
   const router = useRouter();
@@ -104,3 +104,5 @@ export const Header = () => {
     </React.Fragment>
   );
 };
+
+export default Header;
