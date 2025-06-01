@@ -17,9 +17,6 @@ export default function UyeOl() {
     }
   }, [isAuthenticated, router]);
 
-  if (isAuthenticated) {
-    return null;
-  }
   return (
     <main>
       <div className="h-screen w-screen grid lg:grid-cols-3">

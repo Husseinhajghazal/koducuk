@@ -1,39 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Container from "../layout/Container";
 import CourseCard from "../ui/CourseCard";
 import SectionHeader from "../ui/SectionHeader";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { courseService } from "@/services/courseService";
+import { userCourseService } from "@/services/userCourseService";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
-import axios from "axios";
 
-const CoursesSection = () => {
+const CoursesSection = ({ courses = [] }) => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
-  const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL}/api/course/active`
-        );
-
-        setCourses(data.data);
-      } catch (error) {
-        console.error("Failed to fetch courses:", error);
-        toast.error("Kurslar yüklenirken bir hata oluştu");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCourses();
-  }, []);
 
   const handleEnroll = async (courseId) => {
     if (!isAuthenticated) {
@@ -42,19 +20,14 @@ const CoursesSection = () => {
     }
 
     try {
-      const response = await courseService.enrollCourse(courseId);
-      if (response.success) {
-        if (response.alreadyEnrolled || response.data) {
-          router.push(`/kurslar/${courseId}`);
-          if (!response.alreadyEnrolled) {
-            toast.success(response.message);
-          }
-        }
-      }
+      const response = await userCourseService.enrollCourse(courseId);
+      toast.success(response.message);
+      router.push(`/kurslar/${courseId}`);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response.data.message);
     }
   };
+
   return (
     <div className="bg-purplish-black py-20">
       <Container>
@@ -67,35 +40,49 @@ const CoursesSection = () => {
           />
         </div>
       </Container>
-
-      {loading ? (
-        <div className="flex justify-center mt-20">
-          <div className="w-8 h-8 border-4 border-ai-purple border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      ) : (
-        <div className="pt-20 pb-10 overflow-hidden">
+      <div className="pt-20 pb-10 overflow-hidden">
+        <div className="relative">
           <motion.div
             className="flex gap-6"
             animate={{
-              x: [0, -1920],
+              x: [0, -100 * courses.length],
             }}
             transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
+              x: {
+                duration: 20,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "linear",
+              },
             }}
           >
-            {" "}
-            {[...courses, ...courses].map((course, index) => (
-              <CourseCard
-                key={course.id + index}
-                {...course}
-                onEnroll={handleEnroll}
-              />
+            {/* First set of courses */}
+            {courses.map((course, index) => (
+              <motion.div
+                key={`first-${course.id}`}
+                className="flex-shrink-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <CourseCard {...course} onEnroll={handleEnroll} />
+              </motion.div>
+            ))}
+            {/* Duplicate set for seamless loop */}
+            {courses.map((course, index) => (
+              <motion.div
+                key={`second-${course.id}`}
+                className="flex-shrink-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <CourseCard {...course} onEnroll={handleEnroll} />
+              </motion.div>
             ))}
           </motion.div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

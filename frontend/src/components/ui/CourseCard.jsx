@@ -2,8 +2,30 @@
 
 import { motion } from "framer-motion";
 import Button from "./Button";
+import { useEffect, useState } from "react";
+import { userCourseService } from "@/services/userCourseService";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 const CourseCard = ({ id, name, image_url, onEnroll }) => {
+  const [buttonText, setButtonText] = useState("Katıl");
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+  useEffect(() => {
+    const checkSubscription = async () => {
+      if (isAuthenticated) {
+        try {
+          const response = await userCourseService.isSubscribed(id);
+          setButtonText(response.data ? "Devam Et" : "Katıl");
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    checkSubscription();
+  }, [id, isAuthenticated]);
+
   return (
     <motion.div
       className="flex-shrink-0 md:w-[280px]"
@@ -23,9 +45,13 @@ const CourseCard = ({ id, name, image_url, onEnroll }) => {
           <Button
             variant="outline"
             className="w-full"
-            onClick={() => onEnroll(id)}
+            onClick={() =>
+              buttonText === "Katıl"
+                ? onEnroll(id)
+                : router.push(`/kurslar/${id}`)
+            }
           >
-            Katıl
+            {buttonText}
           </Button>
         </div>
       </div>

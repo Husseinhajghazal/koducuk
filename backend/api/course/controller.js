@@ -14,9 +14,29 @@ async function getCoursesController(req, res) {
 }
 
 async function getActiveCourses(req, res) {
-  const courses = await getCourses({ active: true });
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const search = req.query.search || "";
+  const sortOrder = req.query.sortOrder || "asc";
 
-  successResponse(res, "Courses başarı ile çekildi.", courses);
+  const result = await getCourses(
+    { active: true },
+    page,
+    limit,
+    search,
+    sortOrder
+  );
+
+  successResponse(res, "Courses başarı ile çekildi.", [
+    {
+      courses: result.data,
+      pagination: {
+        total: result.total,
+        currentPage: result.currentPage,
+        totalPages: result.totalPages,
+      },
+    },
+  ]);
 }
 
 async function toggleActive(req, res) {

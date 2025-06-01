@@ -14,6 +14,13 @@ router.get(
 );
 
 router.get(
+  "/is-subscribed/:course_id",
+  authenticate,
+  validation.isSubscribed,
+  controller.isSubscribed
+);
+
+router.get(
   "/:id",
   authenticate,
   validation.getUserCourse,

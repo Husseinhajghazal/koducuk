@@ -51,7 +51,177 @@ async function main() {
             lessons: {
               create: [
                 {
+                  index: 0,
+                  name: "Variables and Data Types",
+                  video_url: "https://example.com/videos/js-variables",
+                  description:
+                    "Understanding variables and primitive data types in JavaScript",
+                  active: true,
+                  questions: {
+                    create: [
+                      {
+                        value:
+                          "Which keyword is not used for declaring variables in JavaScript?",
+                        choices: ["var", "let", "define", "const"],
+                        active: true,
+                      },
+                    ],
+                  },
+                },
+                {
                   index: 1,
+                  name: "Variables and Data Types",
+                  video_url: "https://example.com/videos/js-variables",
+                  description:
+                    "Understanding variables and primitive data types in JavaScript",
+                  active: true,
+                  questions: {
+                    create: [
+                      {
+                        value:
+                          "Which keyword is not used for declaring variables in JavaScript?",
+                        choices: ["var", "let", "define", "const"],
+                        active: true,
+                      },
+                    ],
+                  },
+                },
+                {
+                  index: 2,
+                  name: "Variables and Data Types",
+                  video_url: "https://example.com/videos/js-variables",
+                  description:
+                    "Understanding variables and primitive data types in JavaScript",
+                  active: true,
+                  questions: {
+                    create: [
+                      {
+                        value:
+                          "Which keyword is not used for declaring variables in JavaScript?",
+                        choices: ["var", "let", "define", "const"],
+                        active: true,
+                      },
+                    ],
+                  },
+                },
+                {
+                  index: 3,
+                  name: "Variables and Data Types",
+                  video_url: "https://example.com/videos/js-variables",
+                  description:
+                    "Understanding variables and primitive data types in JavaScript",
+                  active: true,
+                  questions: {
+                    create: [
+                      {
+                        value:
+                          "Which keyword is not used for declaring variables in JavaScript?",
+                        choices: ["var", "let", "define", "const"],
+                        active: true,
+                      },
+                    ],
+                  },
+                },
+                {
+                  index: 4,
+                  name: "Variables and Data Types",
+                  video_url: "https://example.com/videos/js-variables",
+                  description:
+                    "Understanding variables and primitive data types in JavaScript",
+                  active: true,
+                  questions: {
+                    create: [
+                      {
+                        value:
+                          "Which keyword is not used for declaring variables in JavaScript?",
+                        choices: ["var", "let", "define", "const"],
+                        active: true,
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            name: "JavaScript Fundamentals",
+            active: true,
+            lessons: {
+              create: [
+                {
+                  index: 0,
+                  name: "Variables and Data Types",
+                  video_url: "https://example.com/videos/js-variables",
+                  description:
+                    "Understanding variables and primitive data types in JavaScript",
+                  active: true,
+                  questions: {
+                    create: [
+                      {
+                        value:
+                          "Which keyword is not used for declaring variables in JavaScript?",
+                        choices: ["var", "let", "define", "const"],
+                        active: true,
+                      },
+                    ],
+                  },
+                },
+                {
+                  index: 1,
+                  name: "Variables and Data Types",
+                  video_url: "https://example.com/videos/js-variables",
+                  description:
+                    "Understanding variables and primitive data types in JavaScript",
+                  active: true,
+                  questions: {
+                    create: [
+                      {
+                        value:
+                          "Which keyword is not used for declaring variables in JavaScript?",
+                        choices: ["var", "let", "define", "const"],
+                        active: true,
+                      },
+                    ],
+                  },
+                },
+                {
+                  index: 2,
+                  name: "Variables and Data Types",
+                  video_url: "https://example.com/videos/js-variables",
+                  description:
+                    "Understanding variables and primitive data types in JavaScript",
+                  active: true,
+                  questions: {
+                    create: [
+                      {
+                        value:
+                          "Which keyword is not used for declaring variables in JavaScript?",
+                        choices: ["var", "let", "define", "const"],
+                        active: true,
+                      },
+                    ],
+                  },
+                },
+                {
+                  index: 3,
+                  name: "Variables and Data Types",
+                  video_url: "https://example.com/videos/js-variables",
+                  description:
+                    "Understanding variables and primitive data types in JavaScript",
+                  active: true,
+                  questions: {
+                    create: [
+                      {
+                        value:
+                          "Which keyword is not used for declaring variables in JavaScript?",
+                        choices: ["var", "let", "define", "const"],
+                        active: true,
+                      },
+                    ],
+                  },
+                },
+                {
+                  index: 4,
                   name: "Variables and Data Types",
                   video_url: "https://example.com/videos/js-variables",
                   description:
