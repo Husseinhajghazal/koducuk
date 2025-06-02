@@ -13,7 +13,7 @@ const courseService = {
       params: {
         page,
         limit,
-        search,
+        search: search.trim(),
         sortOrder,
       },
     });
