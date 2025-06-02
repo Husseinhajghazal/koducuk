@@ -18,7 +18,7 @@ import CourseLeaderboard from "@/components/course/CourseLeaderboard";
 export default function CoursePage({ params }) {
   const { id } = use(params);
   const [course, setCourse] = useState();
-  const [reached_Lesson, setReached_Lesson] = useState(0);
+  const [reached_lesson, setReached_Lesson] = useState(0);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const router = useRouter();
@@ -35,19 +35,10 @@ export default function CoursePage({ params }) {
   };
 
   useEffect(() => {
-    if (!user) {
-      router.push("/giris");
-      return;
-    }
-
     setLoading(true);
     const fetchCourse = async () => {
       try {
         const response = await courseService.getCourse(id);
-        if (!response?.data) {
-          toast.error("Kurs bulunamadı");
-          return;
-        }
 
         setCourse(response.data);
 
@@ -56,7 +47,7 @@ export default function CoursePage({ params }) {
         );
 
         if (userCourse) {
-          setReached_Lesson(userCourse.reached_Lesson);
+          setReached_Lesson(userCourse.reached_lesson);
         } else {
           setReached_Lesson(0);
         }
@@ -73,7 +64,7 @@ export default function CoursePage({ params }) {
 
   const navigateToLesson = (sectionIndex, lessonIndex) => {
     const totalLessonIndex = getLessonTotalIndex(sectionIndex, lessonIndex);
-    if (totalLessonIndex <= reached_Lesson) {
+    if (totalLessonIndex <= reached_lesson) {
       router.push(
         `/dersler/${course.sections[sectionIndex].lessons[lessonIndex].id}`
       );
@@ -117,7 +108,7 @@ export default function CoursePage({ params }) {
                             sectionIndex,
                             index
                           )}
-                          reached_Lesson={reached_Lesson}
+                          reached_lesson={reached_lesson}
                           starOffset={starOffsets[index % starOffsets.length]}
                           onClick={() => navigateToLesson(sectionIndex, index)}
                         />

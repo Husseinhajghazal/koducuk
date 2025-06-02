@@ -57,15 +57,13 @@ async function createUserCourseController(req, res) {
 }
 
 async function updateUserCourseController(req, res) {
-  const { course_id, score, reached_Lesson } = req.body;
-  const id = req.params.id;
+  const { score, reached_lesson } = req.body;
+  const course_id = req.params.id;
 
-  await getUniqueUserCourse(id);
-  const userCourse = await updateUserCourse(id, {
-    user_id: req.user.id,
-    course_id,
-    score,
-    reached_Lesson,
+  let userCourse = await getUsersCourses({ course_id, user_id: req.user.id });
+  userCourse = await updateUserCourse(userCourse[0].id, {
+    score: userCourse[0].score + score,
+    reached_lesson: userCourse[0].reached_lesson + reached_lesson,
   });
 
   successResponse(

@@ -35,7 +35,7 @@ router.post(
 );
 
 router.put(
-  "/:id",
+  "/:course_id",
   authenticate,
   validation.updateUserCourse,
   controller.updateUserCourseController
