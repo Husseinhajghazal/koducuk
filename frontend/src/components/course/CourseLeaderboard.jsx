@@ -34,7 +34,7 @@ export default function CourseLeaderboard({ userCourses, currentUserId }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
             className={twMerge(
-              "flex items-center gap-4 px-4 py-4 rounded-xl cursor-pointer hover:outline-ai-purple hover:outline-2 duration-300",
+              "flex items-center gap-4 my-5 px-4 py-4 rounded-xl cursor-pointer hover:outline-ai-purple hover:outline-2 duration-300",
               index === 0 && "bg-ai-purple/15",
               index === 1 && "bg-ai-purple/10",
               index === 2 && "bg-ai-purple/5",

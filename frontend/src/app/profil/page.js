@@ -37,7 +37,7 @@ export default function Profil() {
     router.push("/");
   };
 
-  if (isLoading) {
+  if (isLoading || !user) {
     return <Loader />;
   }
 

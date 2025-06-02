@@ -60,6 +60,9 @@ async function getLessons(where) {
     return await prisma.lesson.findMany({
       ...(where && { where }),
       orderBy: { index: "asc" },
+      include: {
+        questions: true,
+      },
     });
   } catch (e) {
     console.log(e);
