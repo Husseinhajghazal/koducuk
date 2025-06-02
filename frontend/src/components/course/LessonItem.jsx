@@ -7,7 +7,7 @@ export default function LessonItem({
   index,
   sectionIndex,
   totalLessonIndex,
-  reached_Lesson,
+  reached_lesson,
   starOffset,
   onClick,
 }) {
@@ -21,7 +21,7 @@ export default function LessonItem({
       }}
       className={twMerge(
         "relative flex items-center rounded-full p-5 bg-ai-purple hover:bg-ai-purple/80 duration-300 cursor-pointer hover:scale-105 text-white",
-        reached_Lesson < totalLessonIndex &&
+        reached_lesson < totalLessonIndex &&
           "bg-kc-gray hover:bg-kc-gray/80 text-gray-500 cursor-not-allowed"
       )}
       style={{

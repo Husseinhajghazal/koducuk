@@ -25,7 +25,10 @@ async function getUniqueLesson(id) {
   let lesson;
 
   try {
-    lesson = await prisma.lesson.findUnique({ where: { id } });
+    lesson = await prisma.lesson.findUnique({
+      where: { id },
+      include: { questions: true, section: true },
+    });
   } catch (e) {
     console.log(e);
     throw new ApiError("Error occured while getting lesson.", 500);

@@ -40,4 +40,18 @@ export const userCourseService = {
       return { data: false };
     }
   },
+  updateUserCourse: async (courseId, data) => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    const response = await axios.put(`${baseURL}/${courseId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return {
+      message: response.data.message,
+      data: response.data.data[0],
+    };
+  },
 };

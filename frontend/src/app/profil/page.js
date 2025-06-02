@@ -20,15 +20,9 @@ const tabs = [
 
 export default function Profil() {
   const [activeTab, setActiveTab] = useState("info");
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push("/giris");
-    }
-  }, [isAuthenticated, router]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");

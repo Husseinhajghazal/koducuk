@@ -52,13 +52,7 @@ const createUserCourse = [
 ];
 
 const updateUserCourse = [
-  param("id")
-    .trim()
-    .notEmpty()
-    .withMessage("id gereklidir.")
-    .isMongoId()
-    .withMessage("MongoDb id cinsinden olmalı."),
-  body("course_id")
+  param("course_id")
     .trim()
     .notEmpty()
     .withMessage("course id gereklidir.")
@@ -68,7 +62,7 @@ const updateUserCourse = [
     .optional()
     .isInt({ gt: 0 })
     .withMessage("score must be a positive integer"),
-  body("reached_Lesson")
+  body("reached_lesson")
     .optional()
     .isInt({ gt: -1 })
     .withMessage("reached Lesson must be a positive integer"),

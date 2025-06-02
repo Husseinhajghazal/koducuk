@@ -34,7 +34,7 @@ model UserCourse {
   course_id      String   @db.ObjectId
   course         Course   @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   score          Int      @default(0)
-  reached_Lesson Int      @default(0)
+  reached_lesson Int      @default(0)
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 
@@ -80,14 +80,15 @@ model Lesson {
 }
 
 model Question {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  value      String
-  active     Boolean  @default(true)
-  choices    String[]
-  lesson_id  String   @db.ObjectId
-  lesson     Lesson   @relation(fields: [lesson_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  value          String
+  active         Boolean  @default(true)
+  choices        String[]
+  correct_choice Int      @default(0)
+  lesson_id      String   @db.ObjectId
+  lesson         Lesson   @relation(fields: [lesson_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 }
 
 model Plan {
