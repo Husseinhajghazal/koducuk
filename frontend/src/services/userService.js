@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setLoading, setUser } from "@/store/userSlice";
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL + "/api/user";
 
@@ -69,5 +70,16 @@ export const userService = {
       message: response.data.message,
       data: response.data.data[0],
     };
+  },
+
+  activeAccount: async (link_token) => {
+    const response = await axios.get(baseURL + "/activate/" + link_token);
+
+    const { token, expiresIn, ...userData } = response.data.data[0];
+
+    localStorage.setItem("token", token);
+    localStorage.setItem("tokenExpiration", expiresIn);
+    dispatch(setUser({ user: userData, expiresIn }));
+    dispatch(setLoading(false));
   },
 };
