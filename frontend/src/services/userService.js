@@ -11,7 +11,6 @@ export const userService = {
       data: response.data.data[0],
     };
   },
-
   getMe: async () => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token found");
@@ -21,6 +20,14 @@ export const userService = {
         Authorization: `Bearer ${token}`,
       },
     });
+    return {
+      message: response.data.message,
+      data: response.data.data[0],
+    };
+  },
+
+  activeAccount: async (token) => {
+    const response = await axios.get(`${baseURL}/activate/${token}`);
     return {
       message: response.data.message,
       data: response.data.data[0],
@@ -70,16 +77,5 @@ export const userService = {
       message: response.data.message,
       data: response.data.data[0],
     };
-  },
-
-  activeAccount: async (link_token) => {
-    const response = await axios.get(baseURL + "/activate/" + link_token);
-
-    const { token, expiresIn, ...userData } = response.data.data[0];
-
-    localStorage.setItem("token", token);
-    localStorage.setItem("tokenExpiration", expiresIn);
-    dispatch(setUser({ user: userData, expiresIn }));
-    dispatch(setLoading(false));
   },
 };
