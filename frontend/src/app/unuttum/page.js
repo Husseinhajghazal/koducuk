@@ -13,7 +13,7 @@ export default function Unuttum() {
           <Image
             src={Forget}
             alt="login image"
-            className="w-full h-full object-cover object-[-467px]"
+            className="w-full h-full object-cover"
           />
           <div className="absolute top-0 left-0 w-full h-full bg-ai-purple/30" />
         </div>

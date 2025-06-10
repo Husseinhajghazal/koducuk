@@ -1,35 +1,46 @@
 "use client";
 
-import { use, useLayoutEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import successAnimation from "@/assets/animations/success.json";
 import failAnimation from "@/assets/animations/fail.json";
 import { useRouter } from "next/navigation";
 import { userService } from "@/services/userService";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/store/userSlice";
 
 export default function Activation({ params }) {
   const [success, setSuccess] = useState(null);
   const { token } = use(params);
-  const Router = useRouter();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     async function activateAccount() {
       try {
-        await userService.activeAccount(token);
+        const response = await userService.activeAccount(token);
+        const { token: newToken, expiresIn, ...userData } = response.data;
+
+        // Store authentication data
+        localStorage.setItem("token", newToken);
+        localStorage.setItem("tokenExpiration", expiresIn);
+
+        // Update Redux store with user data
+        dispatch(setUser({ user: userData, expiresIn }));
 
         setSuccess(true);
 
         setTimeout(() => {
-          Router.push("/");
-        }, 10000);
+          router.push("/");
+        }, 3000);
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setSuccess(false);
       }
     }
 
     activateAccount();
-  }, [Router, token]);
+  }, [router, token, dispatch]);
 
   return (
     <div className="bg-purplish-black h-screen flex flex-col gap-10 items-center justify-center text-white">
@@ -53,9 +64,11 @@ export default function Activation({ params }) {
         )}
       </div>
       <p className="text-xl font-semibold">
-        {success
+        {success === true
           ? "Hesabınızı Başarı ile etkinleştirdik"
-          : "Maalesef Hesabınızı Etkinleştiremedik"}
+          : success === false
+          ? "Maalesef Hesabınızı Etkinleştiremedik"
+          : "Hesabınız etkinleştiriliyor..."}
       </p>
     </div>
   );
