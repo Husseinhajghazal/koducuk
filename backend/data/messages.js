@@ -13,7 +13,7 @@ const emailData = {
     text: "Cevabınız evet ise, ilk önce yapmanız gerekenler yeni hesabını onayla. Aşağıdaki düğmeye basmanız yeterli.",
     button: "Onaylıyorum",
   },
-  unutum: {
+  unuttum: {
     title: "Şifreniz Güncelleme | Koducuk",
     head: "Şifrenizi güncellemek ister misiniz?",
     src: "https://img.icons8.com/?size=100&id=jpVAuvLSFhBm&format=png&color=000000",

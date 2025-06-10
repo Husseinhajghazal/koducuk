@@ -84,7 +84,7 @@ model Question {
   value          String
   active         Boolean  @default(true)
   choices        String[]
-  correct_choice Int      @default(0)
+  correct_choice Int
   lesson_id      String   @db.ObjectId
   lesson         Lesson   @relation(fields: [lesson_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   created_at     DateTime @default(now())

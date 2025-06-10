@@ -101,6 +101,9 @@ const Form = () => {
               valid={errors.password && touched.password}
               error={errors.password}
             />
+            <Link href="/unuttum" className="text-ai-purple underline">
+              Şifrenizi mi unuttunuz?
+            </Link>
           </div>
           <Button
             type="submit"

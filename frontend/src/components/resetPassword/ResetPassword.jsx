@@ -6,6 +6,7 @@ import Input from "@/components/ui/Input";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Button from "../ui/Button";
+import { useRouter } from "next/navigation";
 
 const initialValues = {
   password: "",
@@ -28,15 +29,20 @@ const validationSchema = Yup.object({
     .oneOf([Yup.ref("password")], "Passwords must match."),
 });
 
-const ResetPassword = () => {
+const ResetPassword = ({ token }) => {
+  const router = useRouter();
+
   const handleSubmit = async (values) => {
     try {
       const response = await axios.put(
-        process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL + "/api/user/forget_password/" + token,
+        process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL +
+          "/api/user/forget_password/" +
+          token,
         values
       );
 
       toast.success(response.data.message);
+      router.push("/giris");
     } catch (error) {
       toast.error(error.response.data.message);
     }
