@@ -11,7 +11,7 @@ import React from "react";
 async function getCourses() {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL}/api/course/active?page=1&limit=8`,
+      `${process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL}/api/course/active`,
       { next: { revalidate: 3600 } }
     );
     const data = await response.json();

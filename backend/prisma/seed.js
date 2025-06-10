@@ -1,332 +1,98 @@
 const { PrismaClient } = require("@prisma/client");
+const { courses, users } = require("../data/fake.js");
+const { hashPassword } = require("../api/user/service.js");
 const prisma = new PrismaClient();
 
 async function main() {
-  // Create courses
-  const courses = [
-    {
-      name: "Web Development Fundamentals",
-      image_url:
-        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop",
-      sections: {
-        create: [
-          {
-            name: "HTML Basics",
-            active: true,
-            lessons: {
-              create: [
-                {
-                  index: 1,
-                  name: "Introduction to HTML",
-                  video_url: "https://example.com/videos/html-intro",
-                  description:
-                    "Learn the basics of HTML and document structure",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which tag is used for the largest heading in HTML?",
-                        choices: ["<h1>", "<h6>", "<heading>", "<head>"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      name: "JavaScript Mastery",
-      image_url:
-        "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=800&auto=format&fit=crop",
-      sections: {
-        create: [
-          {
-            name: "JavaScript Fundamentals",
-            active: true,
-            lessons: {
-              create: [
-                {
-                  index: 0,
-                  name: "Variables and Data Types",
-                  video_url: "https://example.com/videos/js-variables",
-                  description:
-                    "Understanding variables and primitive data types in JavaScript",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which keyword is not used for declaring variables in JavaScript?",
-                        choices: ["var", "let", "define", "const"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-                {
-                  index: 1,
-                  name: "Variables and Data Types",
-                  video_url: "https://example.com/videos/js-variables",
-                  description:
-                    "Understanding variables and primitive data types in JavaScript",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which keyword is not used for declaring variables in JavaScript?",
-                        choices: ["var", "let", "define", "const"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-                {
-                  index: 2,
-                  name: "Variables and Data Types",
-                  video_url: "https://example.com/videos/js-variables",
-                  description:
-                    "Understanding variables and primitive data types in JavaScript",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which keyword is not used for declaring variables in JavaScript?",
-                        choices: ["var", "let", "define", "const"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-                {
-                  index: 3,
-                  name: "Variables and Data Types",
-                  video_url: "https://example.com/videos/js-variables",
-                  description:
-                    "Understanding variables and primitive data types in JavaScript",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which keyword is not used for declaring variables in JavaScript?",
-                        choices: ["var", "let", "define", "const"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-                {
-                  index: 4,
-                  name: "Variables and Data Types",
-                  video_url: "https://example.com/videos/js-variables",
-                  description:
-                    "Understanding variables and primitive data types in JavaScript",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which keyword is not used for declaring variables in JavaScript?",
-                        choices: ["var", "let", "define", "const"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            name: "JavaScript Fundamentals",
-            active: true,
-            lessons: {
-              create: [
-                {
-                  index: 0,
-                  name: "Variables and Data Types",
-                  video_url: "https://example.com/videos/js-variables",
-                  description:
-                    "Understanding variables and primitive data types in JavaScript",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which keyword is not used for declaring variables in JavaScript?",
-                        choices: ["var", "let", "define", "const"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-                {
-                  index: 1,
-                  name: "Variables and Data Types",
-                  video_url: "https://example.com/videos/js-variables",
-                  description:
-                    "Understanding variables and primitive data types in JavaScript",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which keyword is not used for declaring variables in JavaScript?",
-                        choices: ["var", "let", "define", "const"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-                {
-                  index: 2,
-                  name: "Variables and Data Types",
-                  video_url: "https://example.com/videos/js-variables",
-                  description:
-                    "Understanding variables and primitive data types in JavaScript",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which keyword is not used for declaring variables in JavaScript?",
-                        choices: ["var", "let", "define", "const"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-                {
-                  index: 3,
-                  name: "Variables and Data Types",
-                  video_url: "https://example.com/videos/js-variables",
-                  description:
-                    "Understanding variables and primitive data types in JavaScript",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which keyword is not used for declaring variables in JavaScript?",
-                        choices: ["var", "let", "define", "const"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-                {
-                  index: 4,
-                  name: "Variables and Data Types",
-                  video_url: "https://example.com/videos/js-variables",
-                  description:
-                    "Understanding variables and primitive data types in JavaScript",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which keyword is not used for declaring variables in JavaScript?",
-                        choices: ["var", "let", "define", "const"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      name: "React for Beginners",
-      image_url:
-        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop",
-      sections: {
-        create: [
-          {
-            name: "React Basics",
-            active: true,
-            lessons: {
-              create: [
-                {
-                  index: 1,
-                  name: "Components and Props",
-                  video_url: "https://example.com/videos/react-components",
-                  description:
-                    "Learn about React components and how to pass props",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "What is the correct way to pass a prop called 'name' to a component?",
-                        choices: [
-                          "<Component name='John' />",
-                          "<Component {name='John'} />",
-                          "<Component props.name='John' />",
-                          "<Component 'name'='John' />",
-                        ],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      name: "Python Programming",
-      image_url:
-        "https://images.unsplash.com/photo-1526379879527-8559ecfd8bf7?w=800&auto=format&fit=crop",
-      sections: {
-        create: [
-          {
-            name: "Python Basics",
-            active: true,
-            lessons: {
-              create: [
-                {
-                  index: 1,
-                  name: "Getting Started with Python",
-                  video_url: "https://example.com/videos/python-intro",
-                  description: "Introduction to Python programming language",
-                  active: true,
-                  questions: {
-                    create: [
-                      {
-                        value:
-                          "Which of these is not a valid Python data type?",
-                        choices: ["integer", "float", "varchar", "string"],
-                        active: true,
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ];
+  try {
+    // Clear existing data
+    console.log("Clearing existing data...");
+    await prisma.userCourse.deleteMany();
+    await prisma.user.deleteMany();
+    await prisma.question.deleteMany();
+    await prisma.lesson.deleteMany();
+    await prisma.section.deleteMany();
+    await prisma.course.deleteMany();
+    await prisma.feature.deleteMany();
+    await prisma.plan.deleteMany();
 
-  for (const courseData of courses) {
-    await prisma.course.create({
-      data: courseData,
-    });
+    console.log("Starting seed process...");
+
+    // Create users first
+    console.log("Creating users...");
+    const createdUsers = [];
+    for (const user of users) {
+      const password = await hashPassword(user.password);
+      const createdUser = await prisma.user.create({
+        data: {
+          ...user,
+          password,
+        },
+      });
+      createdUsers.push(createdUser);
+      console.log(`Created user: ${user.email}`);
+    }
+
+    // Create courses with their sections, lessons, and questions
+    console.log("\nCreating courses with related data...");
+    for (const courseData of courses) {
+      // Create the course
+      const course = await prisma.course.create({
+        data: {
+          name: courseData.name,
+          image_url: courseData.image_url,
+        },
+      });
+
+      // Create sections and their related data
+      for (const sectionData of courseData.sections) {
+        const section = await prisma.section.create({
+          data: {
+            name: sectionData.name,
+            course: {
+              connect: { id: course.id },
+            },
+          },
+        });
+
+        // Create lessons and their related data
+        for (const lessonData of sectionData.lessons) {
+          const lesson = await prisma.lesson.create({
+            data: {
+              name: lessonData.name,
+              index: lessonData.index,
+              video_url: lessonData.video_url,
+              description: lessonData.description,
+              section: {
+                connect: { id: section.id },
+              },
+            },
+          });
+
+          // Create questions for each lesson
+          for (const questionData of lessonData.questions) {
+            await prisma.question.create({
+              data: {
+                value: questionData.value,
+                choices: questionData.choices,
+                correct_choice: questionData.correct_choice,
+                lesson: {
+                  connect: { id: lesson.id },
+                },
+              },
+            });
+          }
+        }
+      }
+
+      console.log(`Created course: ${courseData.name}`);
+    }
+
+    console.log("\nSeed completed successfully!");
+  } catch (error) {
+    console.error("\nError during seeding:", error);
+    throw error;
   }
-
-  console.log("Seed data created successfully");
 }
 
 main()

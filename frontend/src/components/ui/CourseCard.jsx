@@ -6,8 +6,24 @@ import { useEffect, useState } from "react";
 import { userCourseService } from "@/services/userCourseService";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import PythonImage from "@/assets/images/python.jpg";
+import HtmlImage from "@/assets/images/html.jpg";
+import JavaScriptImage from "@/assets/images/javascript.png";
+import CssImage from "@/assets/images/css.png";
+import ReactImage from "@/assets/images/react.jpg";
+import NextImage from "@/assets/images/next.webp";
+import Image from "next/image";
 
-const CourseCard = ({ id, name, image_url, onEnroll }) => {
+const CourseImage = {
+  Python: PythonImage,
+  Html: HtmlImage,
+  JavaScript: JavaScriptImage,
+  CSS: CssImage,
+  React: ReactImage,
+  Next: NextImage,
+};
+
+const CourseCard = ({ id, name, onEnroll }) => {
   const [buttonText, setButtonText] = useState("Katıl");
   const { isAuthenticated } = useAuth();
   const router = useRouter();
@@ -34,8 +50,8 @@ const CourseCard = ({ id, name, image_url, onEnroll }) => {
     >
       <div className="bg-black/40 rounded-xl overflow-hidden backdrop-blur-sm border border-white/10 hover:border-primary/50 transition-all">
         <div className="aspect-video relative overflow-hidden">
-          <img
-            src={image_url}
+          <Image
+            src={CourseImage[name]}
             alt={name}
             className="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
           />

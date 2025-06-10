@@ -1,50 +1,100 @@
-import { faker } from "@faker-js/faker";
-
-const users = () => {
-  return Array.from({ length: 10 }).map(() => ({
-    first_name: faker.person.fullName(),
-    last_name: faker.person.lastName(),
-    email: faker.internet.email(),
-    password: faker.internet.password(),
-  }));
-};
-
 const courses = [
   {
-    name: "PYTHON",
-    image_url: "@frontend/src/assets/images/courses/Python.jpg",
+    name: "Python",
+    image_url: "",
     sections: [
       {
-        name: "KURULUM-GİRİŞ",
+        name: "Kurulum Giriş",
         lessons: [
           {
-            index: 1,
+            index: 0,
             name: "kurulum 1",
             video_url:
               "https://www.youtube.com/embed/2c8ylB855yU?si=DURBDiyaAvpyEJx6",
             description: "kurulum 1",
+            questions: [
+              {
+                value: "Python kurulumu için hangi adımlar izlenmelidir?",
+                choices: [
+                  "Python'un resmi web sitesinden indirilip kurulum yapılmalıdır.",
+                  "Sadece bir metin editörü yeterlidir.",
+                  "Python kurulumu gereksizdir.",
+                  "Python, sadece Linux sistemlerde çalışır.",
+                ],
+                correct_choice: 0,
+              },
+              {
+                value:
+                  "Python kurulumundan sonra hangi komutla Python sürümünü kontrol edebiliriz?",
+                choices: [
+                  "python --version",
+                  "py --version",
+                  "python version",
+                  "py version",
+                ],
+                correct_choice: 0,
+              },
+            ],
           },
           {
-            index: 2,
+            index: 1,
             name: "kurulum 2",
             video_url:
               "https://www.youtube.com/embed/NXamdLWSJIw?si=9xnU2KJ7b73YwPMR",
             description: "kurulum 2",
+            questions: [
+              {
+                value: "Python kurulumundan sonra hangi IDE'yi kullanabiliriz?",
+                choices: [
+                  "Visual Studio Code",
+                  "Notepad",
+                  "Microsoft Word",
+                  "Adobe Photoshop",
+                ],
+              },
+              {
+                value:
+                  "Python kurulumundan sonra hangi komutla Python betiğini çalıştırabiliriz?",
+                choices: [
+                  "python script.py",
+                  "run script.py",
+                  "execute script.py",
+                  "start script.py",
+                ],
+              },
+            ],
           },
           {
-            index: 3,
+            index: 2,
             name: "kurulum 3",
             video_url:
               "https://www.youtube.com/embed/Pz6LoHve1a4?si=qydBzPiUtYHH32DE",
             description: "kurulum 3",
+            questions: [
+              {
+                value:
+                  "Python kurulumundan sonra hangi komutla Python REPL (Read-Eval-Print Loop) moduna geçebiliriz?",
+                choices: ["python", "py", "python shell", "py shell"],
+              },
+              {
+                value:
+                  "Python kurulumundan sonra hangi komutla bir Python dosyasını çalıştırabiliriz?",
+                choices: [
+                  "python dosya.py",
+                  "run dosya.py",
+                  "execute dosya.py",
+                  "start dosya.py",
+                ],
+              },
+            ],
           },
         ],
       },
       {
-        name: "TEMELLER",
+        name: "Temeller",
         lessons: [
           {
-            index: 1,
+            index: 0,
             name: "değişkenler",
             video_url:
               "https://www.youtube.com/embed/V1c0MzR8qo8?si=cwVZkpSt1rJLbEcO",
@@ -60,6 +110,7 @@ const courses = [
                   "3 değeri doğrudan ekrana yazılır.",
                   "x adlı dosya oluşturulur ve içine 3 yazılır.",
                 ],
+                correct_choice: 0,
               },
               {
                 value:
@@ -70,6 +121,7 @@ const courses = [
                   "Sadece sayısal türler.",
                   "Sadece mantıksal ve dizeler.",
                 ],
+                correct_choice: 0,
               },
               {
                 value:
@@ -80,6 +132,7 @@ const courses = [
                   "Bu bilgileri sadece diziler içinde saklamalıyız.",
                   "Bu bilgileri saklamanın tek yolu dosya kullanmaktır.",
                 ],
+                correct_choice: 0,
               },
               {
                 value:
@@ -90,11 +143,12 @@ const courses = [
                   "studentName",
                   "_totalPrice",
                 ],
+                correct_choice: 0,
               },
             ],
           },
           {
-            index: 2,
+            index: 1,
             name: "kullanıcı girişi",
             video_url:
               "https://www.youtube.com/embed/79grzjKsIkI?si=nGsLP9ZglUcjGHaj",
@@ -102,13 +156,32 @@ const courses = [
               "Kullanıcıdan isim ve favori yemek bilgisi almak için Python dilinde basit bir uygulama geliştirilmiştir. Program, kullanıcıdan aldığı bilgileri birleştirip ekrana yazdırmaktadır.",
             questions: [
               {
-                value: "",
-                choices: ["", "", "", ""],
+                value:
+                  "Kullanıcıdan isim ve favori yemek bilgisi almak için hangi fonksiyon kullanılır?",
+                choices: ["print()", "str()", "int()", "input()"],
+                correct_choice: 3,
+              },
+              {
+                value:
+                  "Kullanıcıdan alınan isim ve yemek bilgilerini birleştirmek için hangi operatör kullanılır?",
+                choices: ["-", "+", "*", "/"],
+                correct_choice: 1,
+              },
+              {
+                value:
+                  "Aşağıdaki kod parçasında hangi değer ekrana yazdırılır? \n\nname = input('Adınızı girin: ')\nfavorite_food = input('Favori yemeğiniz nedir? ')\nprint(name + ' en sevdiği yemek ' + favorite_food)",
+                choices: [
+                  "Adınız en sevdiği yemek None",
+                  "None en sevdiği yemek",
+                  "Adınız en sevdiği yemek",
+                  "Adınız en sevdiği yemek None None",
+                ],
+                correct_choice: 2,
               },
             ],
           },
           {
-            index: 3,
+            index: 2,
             name: "tür değişimi",
             video_url:
               "https://www.youtube.com/embed/wTsNlDkU7zM?si=is2mdJLzlfMWjoYJ",
@@ -116,13 +189,37 @@ const courses = [
               "Python programlama dilinde matematiksel işlemler oldukça basittir. Kullanıcıdan alınan sayılarla toplama, çarpma gibi işlemler yapılabilir ve bu işlemler için tür dönüşümü gereklidir.",
             questions: [
               {
-                value: "",
-                choices: ["", "", "", ""],
+                value:
+                  "Python'da kullanıcıdan alınan bir değeri sayıya dönüştürmek için hangi fonksiyon kullanılır?",
+                choices: ["str()", "int()", "float()", "input()"],
+                correct_choice: 1,
+              },
+              {
+                value:
+                  "Aşağıdaki kod parçasında hangi değer ekrana yazdırılır? \n\nnum1 = input('Bir sayı girin: ')\nnum2 = input('Başka bir sayı girin: ')\nprint(num1 + num2)",
+                choices: [
+                  "Sayıların toplamı",
+                  "Sayıların çarpımı",
+                  "Sayıların string olarak birleştirilmiş hali",
+                  "Hata mesajı",
+                ],
+                correct_choice: 2,
+              },
+              {
+                value:
+                  "Aşağıdaki kod parçasında hangi değer ekrana yazdırılır? \n\nnum1 = int(input('Bir sayı girin: '))\nnum2 = int(input('Başka bir sayı girin: '))\nprint(num1 + num2)",
+                choices: [
+                  "Sayıların toplamı",
+                  "Sayıların çarpımı",
+                  "Sayıların string olarak birleştirilmiş hali",
+                  "Hata mesajı",
+                ],
+                correct_choice: 0,
               },
             ],
           },
           {
-            index: 4,
+            index: 3,
             name: "string kullanımı",
             video_url:
               "https://www.youtube.com/embed/sRnrKdehLd4?si=r9WHMUZOPIre23ri",
@@ -130,13 +227,31 @@ const courses = [
               "Bu videoda, Python programlama dilinde metinler (stringler) üzerinde nasıl çalışılır, temel string işlemleri ve önemli özellikleri öğreniyoruz. Başlangıç seviyesine uygun, pratik örneklerle zenginleştirilmiş bir anlatım.",
             questions: [
               {
-                value: "",
-                choices: ["", "", "", ""],
+                value: "Python'da string bir değişken nasıl tanımlanır?",
+                choices: [
+                  "string = 'Merhaba Dünya'",
+                  "string = Merhaba Dünya",
+                  "string = 'Merhaba Dünya'",
+                  "string = 'Merhaba' + 'Dünya'",
+                ],
+                correct_choice: 2,
+              },
+              {
+                value:
+                  "Aşağıdaki kod parçasında hangi değer ekrana yazdırılır? \n\ntext = 'Python'\nprint(text[0])",
+                choices: ["P", "y", "Python", "Hata verir"],
+                correct_choice: 0,
+              },
+              {
+                value:
+                  "Aşağıdaki kod parçasında hangi değer ekrana yazdırılır? \n\ntext = 'Python'\nprint(text[1:4])",
+                choices: ["Pyt", "yth", "ytho", "Hata verir"],
+                correct_choice: 1,
               },
             ],
           },
           {
-            index: 5,
+            index: 4,
             name: "matematik işlemler",
             video_url:
               "https://www.youtube.com/embed/QzuyCMYAFf4?si=ccFEDrVwnTjsyonT",
@@ -144,15 +259,29 @@ const courses = [
               "Bu videoda, Python'da sayılarla nasıl işlemler yapılır, toplama, çıkarma, çarpma, bölme gibi temel matematik işlemlerini ve operatörleri öğreniyoruz. Başlangıç seviyesi için ideal!",
             questions: [
               {
-                value: "",
-                choices: ["", "", "", ""],
+                value:
+                  "Python'da toplama işlemi için hangi operatör kullanılır?",
+                choices: ["+", "-", "*", "/"],
+                correct_choice: 0,
+              },
+              {
+                value:
+                  "Aşağıdaki kod parçasında hangi değer ekrana yazdırılır? \n\nnum1 = 10\nnum2 = 5\nprint(num1 + num2)",
+                choices: ["15", "105", "5", "Hata verir"],
+                correct_choice: 0,
+              },
+              {
+                value:
+                  "Aşağıdaki kod parçasında hangi değer ekrana yazdırılır? \n\nnum1 = 10\nnum2 = 5\nprint(num1 * num2)",
+                choices: ["50", "15", "5", "Hata verir"],
+                correct_choice: 0,
               },
             ],
           },
         ],
       },
       {
-        name: "KOŞULLU İHADELER - MANTIKSAL OPERATÖRLER",
+        name: "Koşullu ifadeler - Mantıksal operatörler",
         lessons: [
           {
             index: 1,
@@ -163,16 +292,21 @@ const courses = [
               "Bu videoda Python'da programın akışını yönlernden koşullu ifadeleri (if, elif, else) nasıl kullanacağımızı ve karar yapılarını öğrendik. Gerçek örneklerle pratik anlatım!",
             questions: [
               {
-                value,
-                choices: [],
+                value:
+                  "Python'da koşullu ifadeler hangi anahtar kelimelerle başlar?",
+                choices: ["if", "else", "elif", "all of the above"],
+                correct_choice: 3,
               },
               {
-                value,
-                choices: [],
-              },
-              {
-                value,
-                choices: [],
+                value:
+                  "Aşağıdaki kod parçasında hangi değer ekrana yazdırılır? \n\nx = 10\nif x > 5:\n    print('Büyük')\nelse:\n    print('Küçük')",
+                choices: [
+                  "Büyük",
+                  "Küçük",
+                  "Hata verir",
+                  "Hiçbir şey yazdırmaz",
+                ],
+                correct_choice: 0,
               },
             ],
           },
@@ -185,16 +319,21 @@ const courses = [
               "Bu videoda Python'da mantıksal operatörleri (and, or, not) nasıl kullanacağımızı ve koşulları birleştirirken güç kazanan bu yapıları öğrendik. Basit örneklerle anlaşılır anlatım!",
             questions: [
               {
-                value,
-                choices: [],
+                value:
+                  "Python'da mantıksal operatörlerden hangisi iki koşulun da doğru olması durumunda True döner?",
+                choices: ["and", "or", "not", "xor"],
+                correct_choice: 0,
               },
               {
-                value,
-                choices: [],
-              },
-              {
-                value,
-                choices: [],
+                value:
+                  "Aşağıdaki kod parçasında hangi değer ekrana yazdırılır? \n\nx = 5\ny = 10\nif (x > 0) and (y > 0):\n    print('Her ikisi de pozitif')\nelse:\n    print('En az biri negatif')",
+                choices: [
+                  "Her ikisi de pozitif",
+                  "En az biri negatif",
+                  "Hata verir",
+                  "Hiçbir şey yazdırmaz",
+                ],
+                correct_choice: 0,
               },
             ],
           },
@@ -244,7 +383,7 @@ const courses = [
         ],
       },
       {
-        name: "DİZİLER",
+        name: "Diziler",
         lessons: [
           {
             index: 1,
@@ -259,6 +398,7 @@ const courses = [
                 s = "Python"
                 print(s[0])`,
                 choices: ["P", "y", "Python", "Hata verir"],
+                correct_choice: 0,
               },
               {
                 value:
@@ -269,6 +409,7 @@ const courses = [
                   `"Pyt" + "hon"`,
                   `"ab" + "cd"`,
                 ],
+                correct_choice: 1,
               },
             ],
           },
@@ -277,46 +418,100 @@ const courses = [
     ],
   },
   {
-    name: "HTML",
-    image_url: "@frontend/src/assets/images/courses/HTML.jpg",
+    name: "Html",
+    image_url: "",
     sections: [
       {
-        name: "GİRİŞ",
+        name: "Giriş",
         lessons: [
           {
-            index: 1,
+            index: 0,
             name: "HTML'e Giriş",
             video_url:
               "https://www.youtube.com/embed/jiCSs0Weiqk?si=0T29BzMyzOj8rvvZ",
             description:
               "Bu videoda, web geliştirme dünyasının temelini oluşturan HTML dilini tanıyacak ve ilk web sayfanızı oluşturmaya başlayacaksınız.",
-            questions: [],
+            questions: [
+              {
+                value: "Aşağıdakilerden hangisi HTML'nin açılımıdır?",
+                choices: [
+                  "Hyper Text Markup Language",
+                  "High Text Machine Language",
+                  "Home Tool Markup Language",
+                  "Hyper Transfer Markup Language",
+                ],
+                correct_choice: 0,
+              },
+              {
+                value: "Aşağıdakilerden hangisi HTML ile yapılamaz?",
+                choices: [
+                  "Web sayfasına resim ekleme",
+                  "Sayfaya stil uygulama",
+                  "Dinamik hesaplama yapma",
+                  "Metinleri bölümlere ayırma",
+                ],
+                correct_choice: 2,
+              },
+            ],
           },
           {
-            index: 2,
+            index: 1,
             name: "W3C Nedir?",
             video_url:
               "https://www.youtube.com/embed/Gw4R1XsavoM?si=yAhRBUVjdvwJIE5V",
             description:
               "W3C (World Wide Web Consortium), web teknolojileri için standartlar belirleyen uluslararası kuruluştur. HTML, CSS ve erişilebilirlik gibi temel web standartlarının oluşmasında rol oynar.",
-            questions: [],
+            questions: [
+              {
+                value: "W3C nedir?",
+                choices: [
+                  "Bir web tarayıcısı",
+                  "Web teknolojileri için standartlar belirleyen bir kuruluş",
+                  "Bir programlama dili",
+                  "Bir web sunucusu",
+                ],
+                correct_choice: 1,
+              },
+              {
+                value: "W3C'nin amacı nedir?",
+                choices: [
+                  "Web standartlarını belirlemek ve geliştirmek",
+                  "Web sitelerini barındırmak",
+                  "Web uygulamaları geliştirmek",
+                  "Web tarayıcıları oluşturmak",
+                ],
+                correct_choice: 0,
+              },
+            ],
           },
         ],
       },
       {
-        name: "TEMELLER",
+        name: "Temeller",
         lessons: [
           {
-            index: 1,
+            index: 0,
             name: "Görüntü Seviyeleri (Div, Span)",
             video_url:
               "https://www.youtube.com/embed/sRo1eoW7PeA?si=-Cd1OPFfnOwc3Psf",
             description:
               "Sayfa yapısını düzenlemek için kullanılan temel etiketler: <div> (blok düzeyinde) ve <span> (satır içi).",
-            questions: [],
+            questions: [
+              {
+                value:
+                  "Aşağıdaki etiketlerden hangisi blok düzeyinde bir öğedir?",
+                choices: ["<div>", "<span>", "<p>", "<a>"],
+                correct_choice: 0,
+              },
+              {
+                value: "Aşağıdaki etiketlerden hangisi satır içi bir öğedir?",
+                choices: ["<div>", "<span>", "<p>", "<h1>"],
+                correct_choice: 1,
+              },
+            ],
           },
           {
-            index: 2,
+            index: 1,
             name: "Başlık ve Paragraf Etiketleri",
             video_url:
               "https://www.youtube.com/embed/vzmSTqw1X3Q?si=XGJaYvtfsP3c8XTJ",
@@ -327,6 +522,7 @@ const courses = [
                 value:
                   "Aşağıdaki etiketlerden hangisi en büyük başlığı temsil eder?",
                 choices: ["<h1>", "<h6>", "<p>", "<title>"],
+                correct_choice: 0,
               },
               {
                 value: "<p> etiketi ne için kullanılır?",
@@ -336,11 +532,12 @@ const courses = [
                   "Maddeleme yapmak için",
                   "Link eklemek için",
                 ],
+                correct_choice: 1,
               },
             ],
           },
           {
-            index: 3,
+            index: 2,
             name: "Metin Biçimlendirme Etiketleri",
             video_url:
               "https://www.youtube.com/embed/uew8XqPR--o?si=c09MHCBt55lmH4cv",
@@ -351,16 +548,18 @@ const courses = [
                 value:
                   "Kalın yazı yazmak için kullanılan etiket aşağıdakilerden hangisidir?",
                 choices: ["<i>", "<b>", "<u>", "<em>"],
+                correct_choice: 1,
               },
               {
                 value:
                   "İtalik yazı yazmak için kullanılan etiket aşağıdakilerden hangisidir?",
                 choices: ["<b>", "<i>", "<u>", "<s>"],
+                correct_choice: 1,
               },
             ],
           },
           {
-            index: 4,
+            index: 3,
             name: "Alıntılama Etiketleri",
             video_url:
               "https://www.youtube.com/embed/nF9ME5hPZ9k?si=HjhudUOcSUGX8wcT",
@@ -370,15 +569,17 @@ const courses = [
               {
                 value: "Satır içi alıntı yapmak için hangi etiket kullanılır?",
                 choices: ["<blockquote>", "<quote>", "<q>", "<cite>"],
+                correct_choice: 2,
               },
               {
                 value: "Uzun alıntılar için hangi etiket kullanılır?",
                 choices: ["<q>", "<blockquote>", "<cite>", "<quote>"],
+                correct_choice: 1,
               },
             ],
           },
           {
-            index: 5,
+            index: 4,
             name: "Resim Etiketi",
             video_url:
               "https://www.youtube.com/embed/NORk3uXqEe0?si=M6-nJzV5SNK-5NCf",
@@ -389,21 +590,23 @@ const courses = [
                 value:
                   "Aşağıdaki özniteliklerden hangisi resmin yolunu belirtir?",
                 choices: ["alt", "width", "src", "height"],
+                correct_choice: 2,
               },
               {
                 value:
                   "Bir resmin alternatif metnini belirtmek için hangi öznitelik kullanılır?",
                 choices: ["title", "alt", "src", "width"],
+                correct_choice: 1,
               },
             ],
           },
         ],
       },
       {
-        name: "TABLO VE LİSTELER",
+        name: "Tablo ve Liste Etiketleri",
         lessons: [
           {
-            index: 1,
+            index: 0,
             name: "Tablo Etiketi",
             video_url:
               "https://www.youtube.com/embed/mlZ_va-h-6I?si=Y6ogd6hVHQj33txp",
@@ -414,16 +617,18 @@ const courses = [
                 value:
                   "Tabloda yeni bir satır oluşturmak için hangi etiket kullanılır?",
                 choices: ["<td>", "<tr>", "<th>", "<table>"],
+                correct_choice: 1,
               },
               {
                 value:
                   "Tabloda bir hücre (sütun) oluşturmak için hangi etiket kullanılır?",
                 choices: ["<tr>", "<td>", "<th>", "Hem B hem C doğru"],
+                correct_choice: 3,
               },
             ],
           },
           {
-            index: 2,
+            index: 1,
             name: "Liste Etiketi",
             video_url:
               "https://www.youtube.com/embed/faQM8OYGm98?si=1aweZsXAshSbYlwc",
@@ -434,21 +639,23 @@ const courses = [
                 value:
                   "Numaralı liste oluşturmak için hangi etiket kullanılır?",
                 choices: ["<ul>", "<li>", "<ol>", "<list>"],
+                correct_choice: 2,
               },
               {
                 value:
                   "Herhangi bir liste elemanında kullanılan ortak etiket hangisidir?",
                 choices: ["<ul>", "<ol>", "<li>", "<list>"],
+                correct_choice: 2,
               },
             ],
           },
         ],
       },
       {
-        name: "MEDYA VE GÖMÜLÜ İÇERİK ETİKETLERİ",
+        name: "Medya & Gömülü İçerik Etiketleri",
         lessons: [
           {
-            index: 3,
+            index: 0,
             name: "Medya Etiketleri",
             video_url:
               "https://www.youtube.com/embed/FEc9MTZCQy0?si=6pv5D7a-LqgSOjz7",
@@ -459,11 +666,12 @@ const courses = [
                 value:
                   "Aşağıdakilerden hangisi medya dosyası eklemek için kullanılmaz?",
                 choices: ["<img>", "<audio>", "<video>", "<div>"],
+                correct_choice: 3,
               },
             ],
           },
           {
-            index: 4,
+            index: 1,
             name: "Iframe Etiketi",
             video_url:
               "https://www.youtube.com/embed/2iqiTtQTTOA?si=--udLVNu78BpORi4",
@@ -474,16 +682,17 @@ const courses = [
                 value:
                   "Harici bir web sayfasını sayfanıza gömmek için hangi etiket kullanılır?",
                 choices: ["<img>", "<video>", "<iframe>", "<source>"],
+                correct_choice: 2,
               },
             ],
           },
         ],
       },
       {
-        name: "FORM ETİKETLERİ",
+        name: "Form Etiketleri",
         lessons: [
           {
-            index: 1,
+            index: 0,
             name: "Form Etiketleri (Bölüm 1)",
             video_url:
               "https://www.youtube.com/embed/tAqtmGJK2xc?si=EdGOA4QqJOY7Brt8",
@@ -493,43 +702,14 @@ const courses = [
               {
                 value:
                   "Kullanıcıdan veri almak için kullanılan ana etiket hangisidir?",
-                choices: ["<input>", "<form>", "<button>", "<label>"],
+                choices: ["<input>", "<button>", "<form>", "<label>"],
+                correct_choice: 2,
               },
               {
                 value:
                   "Şifre alanını oluşturmak için input'un type değeri ne olmalıdır?",
                 choices: ["text", "password", "email", "number"],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        name: "SORULAR",    
-        lessons: [
-          {
-            index: 1,
-            name: "Genel Tekrar Soruları",
-            video_url: "",
-            description: "HTML ile ilgili genel tekrar soruları.",
-            questions: [
-              {
-                value: "Aşağıdakilerden hangisi HTML'nin açılımıdır?",
-                choices: [
-                  "Hyper Text Markup Language",
-                  "High Text Machine Language",
-                  "Home Tool Markup Language",
-                  "Hyper Transfer Markup Language",
-                ],
-              },
-              {
-                value: "Aşağıdakilerden hangisi HTML ile yapılamaz?",
-                choices: [
-                  "Web sayfasına resim ekleme",
-                  "Sayfaya stil uygulama",
-                  "Dinamik hesaplama yapma",
-                  "Metinleri bölümlere ayırma",
-                ],
+                correct_choice: 1,
               },
             ],
           },
@@ -537,4 +717,42 @@ const courses = [
       },
     ],
   },
+  {
+    name: "JavaScript",
+    image_url: "",
+    sections: [],
+  },
+  {
+    name: "CSS",
+    image_url: "",
+    sections: [],
+  },
+  {
+    name: "React",
+    image_url: "",
+    sections: [],
+  },
+  {
+    name: "Next",
+    image_url: "",
+    sections: [],
+  },
 ];
+
+const users = [
+  {
+    first_name: "Hussein",
+    last_name: "Haj Ghazal",
+    email: "husseinghazal01@gmail.com",
+    password: "Test1234",
+    role: "ADMIN",
+  },
+  {
+    first_name: "Muhammed",
+    last_name: "Zarzour",
+    email: "mhmd.zrzour@gmail.com",
+    password: "Test1234",
+  },
+];
+
+module.exports = { courses, users };
