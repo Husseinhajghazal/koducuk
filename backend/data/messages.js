@@ -91,7 +91,7 @@ exports.getMailContent = (type, href) => {
       <!-- Header -->
       <tr>
         <td style="background-color: #6a48f2; padding: 20px; text-align: center;">
-          <img src="https://cdn.prod.website-files.com/61d6943d6b5924685ac825ca/64a6a12136e8f756c9df3baa_k-combomark-white.svg" alt="Koducuk Logo" width="120" style="display: block; margin: 0 auto;">
+          <img src="https://res.cloudinary.com/dx4zoq1lb/image/upload/v1749583086/logo_kxyf6b.png" alt="Koducuk Logo" width="120" style="display: block; margin: 0 auto;">
         </td>
       </tr>
       

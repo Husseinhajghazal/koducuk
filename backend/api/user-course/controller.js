@@ -36,7 +36,7 @@ async function getUserCourse(req, res) {
 
   const userCourse = await getUniqueUserCourse(id);
 
-  successResponse(res, "Başarı ile kullanıcı ve course bilgileri çekildi.", [
+  successResponse(res, "Başarı ile kullanıcı ve kurse bilgileri çekildi.", [
     userCourse,
   ]);
 }
@@ -49,11 +49,7 @@ async function createUserCourseController(req, res) {
 
   const userCourse = createUserCourse({ user_id, course_id });
 
-  successResponse(
-    res,
-    "Başarı ile bu kullanıcı, artık şu course'a katılabiliyor.",
-    [userCourse]
-  );
+  successResponse(res, "Başarı ile bu kursaya katıldınız.", [userCourse]);
 }
 
 async function updateUserCourseController(req, res) {
@@ -68,7 +64,7 @@ async function updateUserCourseController(req, res) {
 
   successResponse(
     res,
-    "Başarı ile course'teki seviyeniz ve scorenuz güncellendi.",
+    "Başarı ile kurse'teki seviyeniz ve scorenuz güncellendi.",
     [userCourse]
   );
 }
